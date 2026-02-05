@@ -10,7 +10,7 @@ import {
   SidebarFooter,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { Headset, LogOut } from "lucide-react";
+import { LogOut } from "lucide-react";
 import { menuGroups } from "./layoutdata";
 import { ActiveLink } from "@/components/activLink";
 import { useState } from "react";
@@ -34,18 +34,20 @@ export function SidebarLayout() {
                 {group.title}
               </SidebarGroupLabel>
             )}
-            <SidebarGroupContent className="px-3">
-              <SidebarMenu>
+            <SidebarGroupContent className={isCollapsed ? "px-0" : "px-3"}>
+              <SidebarMenu className={isCollapsed ? "items-center" : ""}>
                 {group.links.map((item) => (
                   <SidebarMenuItem key={item.label}>
                     <SidebarMenuButton
                       asChild
                       tooltip={isCollapsed ? item.label : undefined}
-                      className="relative w-full h-11 flex items-center rounded-lg font-normal transition-all duration-200 group text-slate-400 hover:text-white hover:bg-[#1a1d23] data-[active=true]:bg-amber-500 data-[active=true]:text-white shadow-sm"
+                      className={`relative flex items-center rounded-lg font-normal transition-all duration-200 group text-slate-400 hover:text-white hover:bg-[#1a1d23] data-[active=true]:bg-amber-500 data-[active=true]:text-white shadow-sm ${isCollapsed ? "w-11 h-11 justify-center p-0" : "w-full h-11"
+                        }`}
                     >
                       <ActiveLink
                         href={item.path}
-                        className="w-full h-full flex items-center gap-3"
+                        className={`w-full h-full flex items-center ${isCollapsed ? "justify-center" : "gap-3 px-3"
+                          }`}
                       >
                         <item.icon className="h-5 w-5 min-w-5 stroke-[1.8] transition-colors duration-200" />
                         {!isCollapsed && (
@@ -63,29 +65,25 @@ export function SidebarLayout() {
         ))}
       </SidebarContent>
 
-      <SidebarFooter className="bg-[#0f1115] pb-8 px-3 border-t border-slate-800/50 pt-4">
-        <SidebarMenu>
+      <SidebarFooter className={`bg-[#0f1115] pb-8 border-t border-slate-800/50 pt-4 flex flex-col ${isCollapsed ? "px-0 items-center" : "px-3"}`}>
+        <SidebarMenu className={isCollapsed ? "items-center" : ""}>
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
               tooltip={isCollapsed ? "Help Center" : undefined}
-              className="w-full h-11 flex items-center rounded-lg font-normal transition-all duration-200 text-slate-400 hover:text-white hover:bg-[#1a1d23]"
+              className={`flex items-center rounded-lg font-normal transition-all duration-200 text-slate-400 hover:text-white hover:bg-[#1a1d23] ${isCollapsed ? "w-11 h-11 justify-center p-0" : "w-full h-11"
+                }`}
             >
-              <ActiveLink href="/layout/help" className="w-full h-full flex items-center gap-3">
-                <Headset className="h-5 w-5 min-w-5 stroke-[1.8]" />
-                {!isCollapsed && (
-                  <span className="text-sm font-semibold">Help Center</span>
-                )}
-              </ActiveLink>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton
               onClick={() => setLogout(true)}
               tooltip={isCollapsed ? "Logout" : undefined}
-              className="w-full h-11 flex items-center rounded-lg font-normal transition-all duration-200 text-red-500 hover:text-red-400 hover:bg-red-500/10 cursor-pointer"
+              className={`flex items-center rounded-lg font-normal transition-all duration-200 text-red-500 hover:text-red-400 hover:bg-red-500/10 cursor-pointer ${isCollapsed ? "w-11 h-11 justify-center p-0" : "w-full h-11"
+                }`}
             >
-              <div className="w-full h-full flex items-center gap-3">
+              <div className={`w-full h-full flex items-center ${isCollapsed ? "justify-center" : "gap-3 px-3"}`}>
                 <LogOut className="h-5 w-5 min-w-5 stroke-[1.8]" />
                 {!isCollapsed && (
                   <span className="text-sm font-semibold">Logout</span>

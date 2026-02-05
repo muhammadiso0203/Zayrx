@@ -12,7 +12,7 @@ const LogoutPopup = ({ open, setOpen, onConfirm }: LogoutPopupProps) => {
     return (
         <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/40 backdrop-blur-[2px]">
             <div
-                className="bg-white rounded-[32px] w-full max-w-[440px] p-8 shadow-2xl flex flex-col items-center text-center animate-in zoom-in-95 duration-200"
+                className="bg-white rounded-[32px] w-full max-w-110 p-8 shadow-2xl flex flex-col items-center text-center animate-in zoom-in-95 duration-200"
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className="relative mb-6">

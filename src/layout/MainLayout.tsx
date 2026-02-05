@@ -1,4 +1,4 @@
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { SidebarLayout } from "./sidebarLayout";
 import { Outlet } from "react-router";
 
@@ -8,6 +8,9 @@ const MainLayout = () => {
       <div className="flex flex-1">
         <SidebarLayout />
         <main className="flex-1 p-6 bg-gray-50">
+          <div className="mb-4">
+            <SidebarTrigger className="bg-white shadow-sm border border-gray-200 hover:bg-gray-50 rounded-[10px]" />
+          </div>
           <Outlet />
         </main>
       </div>

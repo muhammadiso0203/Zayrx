@@ -34,7 +34,7 @@ const Settings = () => {
         </button>
       </div>
 
-      <div className="flex flex-col lg:flex-row border border-gray-200 rounded-2xl bg-white overflow-hidden min-h-[600px] shadow-sm">
+      <div className="flex flex-col lg:flex-row border border-gray-200 rounded-2xl bg-white overflow-hidden min-h-150 shadow-sm">
         <div className="w-full lg:w-64 border-r border-gray-100 p-4 bg-gray-50/10">
           <nav className="space-y-1">
             {sidebarItems.map((item) => (

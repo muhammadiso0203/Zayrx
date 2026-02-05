@@ -9,7 +9,7 @@ const Popup = ({ open, setOpen }: { open: boolean, setOpen: (open: boolean) => v
 
     return (
         <div className="min-h-screen fixed inset-0 z-50 flex items-center justify-center bg-black/10">
-            <div className="absolute w-[500px] h-[800px] rounded-xl bg-white p-6 shadow-lg top-20 right-10">
+            <div className="absolute w-125 h-200 rounded-xl bg-white p-6 shadow-lg top-20 right-10">
 
                 <div className="mb-4 flex items-center justify-between">
                     <h2 className="text-lg font-semibold">Update User</h2>
