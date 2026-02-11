@@ -34,6 +34,13 @@ const Login = () => {
     );
   }
 
+  const handleStaticLogin = () => {
+    // Setting a static token for demo/testing purposes
+    Cookies.set("token", "static_demo_token");
+    toast.success("Logged in with static account", { position: "top-right" });
+    navigate("/layout");
+  }
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -122,6 +129,13 @@ const Login = () => {
   `}
         >
           {isPending ? "Logging in..." : "Login"}
+        </button>
+
+        <button
+          onClick={handleStaticLogin}
+          className="w-full mt-3 py-3 rounded-xl font-semibold border border-yellow-500 text-yellow-500 hover:bg-yellow-50 transition-colors"
+        >
+          Quick Login (Static)
         </button>
 
         <p className="text-center text-sm text-gray-500 mt-6 flex gap-1 justify-center items-center">
