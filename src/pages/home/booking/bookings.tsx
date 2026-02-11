@@ -1,5 +1,4 @@
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { booking } from "@/data/data"
 import { ArrowDown, ArrowUp, ChevronLeft, ChevronRight, CircleCheck, CircleMinus, CircleX, Clock, File, Filter, MoreHorizontal, Search, SortAscIcon } from "lucide-react"
 import { useState } from "react"
 import Popup from "./popup"

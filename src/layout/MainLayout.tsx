@@ -1,6 +1,6 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { SidebarLayout } from "./sidebarLayout";
-import { Navigate, Outlet, useNavigate, useParams } from "react-router";
+import { Navigate, Outlet, useNavigate } from "react-router";
 import Cookies from 'js-cookie'
 import { getUserFromToken } from "@/utils/userUtils";
 import { User } from "lucide-react";
