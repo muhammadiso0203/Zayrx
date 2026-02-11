@@ -1,9 +1,7 @@
 import { useState } from "react";
 import {
   UserPlus,
-  Mail,
   Phone,
-  User,
   Shield,
   Lock,
   Eye,
@@ -138,56 +136,23 @@ const Admins = () => {
         <div className="flex flex-col gap-8 items-center justify-center">
 
 
-          <div className="bg-white border border-gray-100 rounded-3xl p-8 w-300 ">
+          <div className="bg-white border border-gray-100 rounded-[10px] p-8 w-300 ">
             <form className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700 flex items-center gap-2">
-                    Full Name <span className="text-red-500">*</span>
-                  </label>
-                  <div className="relative group">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none transition-colors text-gray-400">
-                      <User className="h-5 w-5" />
-                    </div>
-                    <input
-                      type="text"
-                      placeholder="John Doe"
-
-                      className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-2xl bg-gray-50/30 text-gray-900 placeholder:text-gray-400 text-sm"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700 flex items-center gap-2">
-                    Email Address <span className="text-red-500">*</span>
-                  </label>
-                  <div className="relative group">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none transition-colors text-gray-400">
-                      <Mail className="h-5 w-5" />
-                    </div>
-                    <input
-                      type="email"
-                      placeholder="john@example.com"
-
-                      className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-2xl bg-gray-50/30 text-gray-900 placeholder:text-gray-400 text-sm"
-                    />
-                  </div>
-                </div>
 
                 <div className="space-y-2">
                   <label className="text-sm font-bold text-gray-700 flex items-center gap-2">
                     Phone Number
                   </label>
                   <div className="relative group">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none transition-colors text-gray-400">
+                    <div className="absolute inset-y-0 left-0 pl-3  flex items-center pointer-events-none transition-colors text-gray-400">
                       <Phone className="h-5 w-5" />
                     </div>
                     <input
                       type="tel"
                       placeholder="+998 90 000 00 00"
 
-                      className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-2xl bg-gray-50/30 text-gray-900 placeholder:text-gray-400 text-sm"
+                      className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-[10px] bg-gray-50/30 text-gray-900 placeholder:text-gray-400 text-sm"
                     />
                   </div>
                 </div>
@@ -203,11 +168,10 @@ const Admins = () => {
                     <Select
 
                     >
-                      <SelectTrigger className="w-full pl-10 pr-3 py-3 border border-gray-200 rounded-2xl bg-gray-50/30 text-gray-900 placeholder:text-gray-400 text-sm">
-                        <SelectValue placeholder="Manager" />
+                      <SelectTrigger className="w-full pl-10 pr-3 py-3 border border-gray-200 rounded-[10px] bg-gray-50/30 text-gray-900 placeholder:text-gray-400 text-sm">
+                        <SelectValue placeholder="Admin" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Manager">Manager</SelectItem>
                         <SelectItem value="Admin">Admin</SelectItem>
                       </SelectContent>
                     </Select>
@@ -227,7 +191,7 @@ const Admins = () => {
                         type={showPassword ? "text" : "password"}
                         placeholder="••••••••"
 
-                        className="block w-full pl-10 pr-12 py-3 border border-gray-200 rounded-2xl bg-gray-50/30 text-gray-900 text-sm"
+                        className="block w-full pl-10 pr-12 py-3 border border-gray-200 rounded-[10px] bg-gray-50/30 text-gray-900 text-sm"
                       />
                       <button
                         type="button"
@@ -248,7 +212,7 @@ const Admins = () => {
                       <input
                         type={showPassword ? "text" : "password"}
                         placeholder="••••••••"
-                        className="block w-full pl-10 pr-12 py-3 border border-gray-200 rounded-2xl bg-gray-50/30 text-gray-900 text-sm"
+                        className="block w-full pl-10 pr-12 py-3 border border-gray-200 rounded-[10px] bg-gray-50/30 text-gray-900 text-sm"
                       />
                     </div>
                   </div>
@@ -259,13 +223,13 @@ const Admins = () => {
                 <button
                   type="button"
                   onClick={() => setActiveTab('list')}
-                  className="px-6 py-3 border border-gray-200 text-gray-600 rounded-2xl font-bold cursor-pointer flex items-center justify-center gap-2"
+                  className="px-6 py-3 border border-gray-200 text-gray-600 rounded-[10px] font-bold cursor-pointer flex items-center justify-center gap-2"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-10 py-3 bg-amber-500 text-white rounded-2xl font-bold cursor-pointer flex items-center justify-center gap-2"
+                  className="px-10 py-3 bg-amber-500 text-white rounded-[10px] font-bold cursor-pointer flex items-center justify-center gap-2"
                 >
                   <UserPlus className="w-5 h-5" />
                   Create Admin

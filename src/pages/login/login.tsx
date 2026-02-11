@@ -1,19 +1,39 @@
 import { Eye, EyeOff, User2 } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { usePhone } from "../service/mutation/usePhone";
+import { toast } from "sonner";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const [show, setShow] = useState(false);
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate()
 
-  const validateEmail = (email: string) => {
-    if (!email) return "Email address is required";
-    if (!/^\S+@\S+\.\S+$/.test(email))
-      return "The email address you entered is wrong!";
-    return "";
-  };
+  const { mutate, isPending, error } = usePhone()
+
+  const handleLogin = () => {
+    mutate(
+      { phoneNumber, password },
+      {
+        onSuccess: (data: any) => {
+          console.log("Login successful, data:", data.data.token);
+          if (data.data.token) {
+            Cookies.set("token", data.data.token);
+          } else {
+            console.error("Token not found in response data!");
+          }
+          toast.success("Login successful", { position: "top-right" });
+          navigate("/layout");
+        },
+        onError: () => {
+          toast.error("Login failed", { position: "top-right" });
+        }
+      }
+    );
+  }
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -33,28 +53,25 @@ const Login = () => {
 
         <div className="mt-6">
           <label className="text-sm font-medium text-gray-600">
-            Email Address <span className="text-red-500">*</span>
+            Phone number <span className="text-red-500">*</span>
           </label>
           <input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
+            type="text"
+            placeholder="Enter your phone number"
+            value={phoneNumber}
             onChange={(e) => {
-              setEmail(e.target.value);
-              setEmailError("");
+              setPhoneNumber(e.target.value);
             }}
-            onBlur={(e) => {
-              const error = validateEmail(e.target.value);
-              setEmailError(error);
-            }}
-            className={`w-full mt-1 px-4 py-3 rounded-xl border border-gray-200 outline-none ${emailError ? "border-red-200 bg-red-200" : ""}`}
+            className={`w-full mt-1 px-4 py-3 rounded-xl border border-gray-200 outline-none`}
           />
-          {emailError && (
+          {error && (
             <div className="flex items-center gap-2 mt-1 text-sm text-red-500">
               <span className="w-4 h-4 flex items-center justify-center rounded-full border border-red-400 text-xs">
                 !
               </span>
-              <span>{emailError}</span>
+              <span>
+                The phone number or password is incorrect
+              </span>
             </div>
           )}
         </div>
@@ -95,15 +112,16 @@ const Login = () => {
         </div>
 
         <button
+          onClick={handleLogin}
+          disabled={!phoneNumber || !password || isPending}
           className={`w-full mt-6 py-3 rounded-xl font-semibold
-    ${
-      email && password
-        ? "bg-yellow-500 text-white cursor-pointer"
-        : "bg-yellow-200 cursor-not-allowed"
-    }
+    ${phoneNumber && password
+              ? "bg-yellow-500 text-white cursor-pointer"
+              : "bg-yellow-200 cursor-not-allowed"
+            }
   `}
         >
-          Login
+          {isPending ? "Logging in..." : "Login"}
         </button>
 
         <p className="text-center text-sm text-gray-500 mt-6 flex gap-1 justify-center items-center">

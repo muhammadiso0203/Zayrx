@@ -46,6 +46,7 @@ export function SidebarLayout() {
                     >
                       <ActiveLink
                         href={item.path}
+                        exact={item.exact}
                         className={`w-full h-full flex items-center ${isCollapsed ? "justify-center" : "gap-3 px-3"
                           }`}
                       >
