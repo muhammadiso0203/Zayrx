@@ -14,7 +14,7 @@ import { LogOut } from "lucide-react";
 import { menuGroups } from "./layoutdata";
 import { ActiveLink } from "@/components/activLink";
 import { useState } from "react";
-import LogoutPopup from "@/pages/home/logout";
+import LogoutPopup from "@/pages/barber/home/logout";
 
 export function SidebarLayout() {
   const { state } = useSidebar();
