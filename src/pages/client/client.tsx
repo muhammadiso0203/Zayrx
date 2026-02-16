@@ -1,4 +1,4 @@
-import {  Users, ChevronRight } from "lucide-react";
+import { Users, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router";
 
 const Client = () => {

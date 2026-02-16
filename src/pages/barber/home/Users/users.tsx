@@ -17,6 +17,18 @@ const Staff = () => {
 
   const filteredUsers = data?.data?.filter((user: any) => user.role !== "super_admin") || [];
 
+  // Static demo staff
+  const demoStaff = {
+    id: 1,
+    name: "Sardor Rahimov",
+    phoneNumber: "+998 90 123 45 67",
+    phone: "+998 90 123 45 67",
+    role: "barber"
+  };
+
+  // Combine demo staff with real users
+  const allStaff = filteredUsers.length > 0 ? filteredUsers : [demoStaff];
+
   const handleEdit = (user: any) => {
     setSelectedUser(user);
     setOpen(true);
@@ -99,7 +111,7 @@ const Staff = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredUsers.map((user: any, index: number) => (
+                {allStaff.map((user: any, index: number) => (
                   <TableRow key={user.id} className="hover:bg-gray-50/50 transition-colors group border-b border-gray-100">
                     <TableCell className="px-6 py-4 text-center">
                       <input type="checkbox" className="rounded border-gray-300" />
@@ -141,7 +153,7 @@ const Staff = () => {
 
         <div className="p-4 flex justify-between items-center gap-4 text-sm font-medium text-gray-500 border-t border-gray-100 bg-white">
           <div className="flex-1">
-            Jami {filteredUsers.length} ta natijadan {filteredUsers.length} tasi ko'rsatilmoqda
+            Jami {allStaff.length} ta natijadan {allStaff.length} tasi ko'rsatilmoqda
           </div>
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">

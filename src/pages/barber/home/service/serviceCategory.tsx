@@ -32,6 +32,16 @@ const ServiceCategory = () => {
     });
     const isPending = isCreating || isUpdating;
 
+    // Static demo category
+    const demoCategory = {
+        id: 1,
+        name: "Soch olish",
+        description: "Barcha turdagi soch olish xizmatlari"
+    };
+
+    // Combine demo category with real categories
+    const allCategories = data?.data?.length > 0 ? data.data : [demoCategory];
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -135,7 +145,7 @@ const ServiceCategory = () => {
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {data?.data?.map((category: any) => (
+                    {allCategories?.map((category: any) => (
                         <Card key={category.id} className="hover:shadow-md transition-shadow relative group">
                             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                 <CardTitle className="text-sm font-medium">
@@ -166,7 +176,7 @@ const ServiceCategory = () => {
                             </CardContent>
                         </Card>
                     ))}
-                    {(!data?.data || data?.data.length === 0) && (
+                    {(!allCategories || allCategories.length === 0) && (
                         <div className="col-span-full text-center py-10 text-muted-foreground">
                             No categories found. Please add Category
                         </div>

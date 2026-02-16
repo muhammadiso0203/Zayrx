@@ -9,6 +9,20 @@ const Bookings = () => {
 
   const { data, isLoading } = useBooking({})
   console.log(data)
+
+  // Static demo booking
+  const demoBooking = {
+    id: 1,
+    customerName: "Alisher Karimov",
+    service: "Klassik soch olish",
+    bookingDate: "2026-02-20",
+    staffName: "Sardor Rahimov",
+    status: "Confirmed"
+  };
+
+  // Combine demo booking with real bookings
+  const allBookings = data?.data?.length > 0 ? data.data : [demoBooking];
+
   return (
     <>
       <h1 className="font-bold text-2xl mb-4">Bookings</h1>
@@ -155,7 +169,7 @@ const Bookings = () => {
                 </tr>
               </thead>
               <tbody>
-                {data?.data?.map((booking:any) => (
+                {allBookings?.map((booking: any) => (
                   <tr key={booking.id}>
                     <td className="px-6 py-4 text-center">
                       <input type="checkbox" className="rounded border-gray-300 text-amber-500 focus:ring-amber-500 w-4 h-4" />

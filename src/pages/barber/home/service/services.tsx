@@ -19,6 +19,21 @@ const Services = () => {
 
   const isLoading = isResourcesLoading;
 
+  // Static demo service
+  const demoService = {
+    id: 1,
+    name: "Klassik soch olish",
+    description: "Professional soch olish xizmati",
+    durationMinutes: 30,
+    basePrice: 50000,
+    category: {
+      name: "Soch olish"
+    }
+  };
+
+  // Combine demo service with real services
+  const allServices = data?.data?.length > 0 ? data.data : [demoService];
+
   const handleDelete = (id: string) => {
     deleteResource(id, {
       onSuccess: () => {
@@ -102,8 +117,8 @@ const Services = () => {
                     </div>
                   </td>
                 </tr>
-              ) : data?.data?.length > 0 ? (
-                data.data.map((service: any) => (
+              ) : allServices?.length > 0 ? (
+                allServices.map((service: any) => (
                   <tr key={service.id} className="hover:bg-gray-50/50 transition-colors group border-b border-gray-100">
                     <td className="px-6 py-4 text-center">
                       <input type="checkbox" className="rounded border-gray-300 text-amber-500 focus:ring-amber-500 w-4 h-4" />
