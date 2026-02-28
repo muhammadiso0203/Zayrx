@@ -16,9 +16,11 @@ import {
     AlertDialog,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { useTranslation } from "react-i18next";
 
 
 const ServiceCategory = () => {
+    const {t} = useTranslation()
     const { data, isLoading } = useGetServiceCategory();
     const { mutate: createCategory, isPending: isCreating } = useCreateServiceCategory();
     const { mutate: updateCategory, isPending: isUpdating } = useUpdateServiceCategory();
@@ -83,41 +85,41 @@ const ServiceCategory = () => {
         <div className="container mx-auto p-6">
             <div className="flex justify-between items-center mb-6">
                 <div>
-                    <h1 className="text-2xl font-bold tracking-tight">Service Categories</h1>
+                    <h1 className="text-2xl font-bold tracking-tight">{t('service_categories')}</h1>
                     <p className="text-muted-foreground">
-                        Manage your service categories here.
+                        {t('manage_service_categories')}
                     </p>
                 </div>
                 <Dialog open={open} onOpenChange={setOpen}>
                     <Button onClick={handleAddClick} className="bg-amber-500 hover:bg-amber-600">
-                        <Plus className="mr-2 h-4 w-4" /> Add Category
+                        <Plus className="mr-2 h-4 w-4" /> {t('add_category')}
                     </Button>
                     <DialogContent>
                         <DialogHeader>
-                            <DialogTitle>{editingCategory ? "Edit Category" : "Add New Category"}</DialogTitle>
+                            <DialogTitle>{editingCategory ? t('edit_category') : t('add_category')}</DialogTitle>
                         </DialogHeader>
                         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
                             <div className="space-y-2">
-                                <Label htmlFor="name">Name</Label>
+                                <Label htmlFor="name">{t('category_name')}</Label>
                                 <Input
                                     id="name"
                                     value={formData.name}
                                     onChange={(e) =>
                                         setFormData({ ...formData, name: e.target.value })
                                     }
-                                    placeholder="Category Name"
+                                    placeholder={t('category_name')}
                                     required
                                 />
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="description">Description</Label>
+                                <Label htmlFor="description">{t('category_description')}</Label>
                                 <Input
                                     id="description"
                                     value={formData.description}
                                     onChange={(e) =>
                                         setFormData({ ...formData, description: e.target.value })
                                     }
-                                    placeholder="Category description"
+                                    placeholder={t('category_description')}
                                 />
                             </div>
                             <Button
@@ -128,10 +130,10 @@ const ServiceCategory = () => {
                                 {isPending ? (
                                     <>
                                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                        Saving...
+                                        {t("category_loading")}
                                     </>
                                 ) : (
-                                    "Save Category"
+                                    t("save_category")
                                 )}
                             </Button>
                         </form>
@@ -178,7 +180,7 @@ const ServiceCategory = () => {
                     ))}
                     {(!allCategories || allCategories.length === 0) && (
                         <div className="col-span-full text-center py-10 text-muted-foreground">
-                            No categories found. Please add Category
+                            {t("no_categories_found")}
                         </div>
                     )}
                 </div>

@@ -4,10 +4,12 @@ import { useState } from "react";
 import Popup from "./popup";
 import { useDeleteResource, useGetResources } from "../../service/hooks/useService";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 
 
 
 const Services = () => {
+  const {t} = useTranslation()
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
@@ -18,6 +20,7 @@ const Services = () => {
   const { data, isLoading: isResourcesLoading } = useGetResources({ search, page, limit });
 
   const isLoading = isResourcesLoading;
+
 
   // Static demo service
   const demoService = {
@@ -37,27 +40,27 @@ const Services = () => {
   const handleDelete = (id: string) => {
     deleteResource(id, {
       onSuccess: () => {
-        toast.success('Service deleted')
+        toast.success(t('service_deleted'))
       },
       onError: () => {
-        toast.error('Service not deleted')
+        toast.error(t('service_not_deleted'))
       }
     })
   }
 
   return (
     <div className="p-1 bg-gray-50/30 min-h-screen">
-      <h1 className="font-bold text-2xl mb-4">Services</h1>
+      <h1 className="font-bold text-2xl mb-4">{t('services')}</h1>
       <hr />
 
       <div className="flex justify-between items-center  gap-4 mb-4 mt-4">
         <h1 className="text-gray-500 text-sm">
-          Management / <span className="font-bold text-black">Services</span>
+          {t('service_management')} / <span className="font-bold text-black">{t('services')}</span>
         </h1>
         <div className="flex items-center gap-3">
           <button onClick={() => { setOpen(true); setEditingService(null); }} className="flex items-center justify-center gap-2 text-sm px-4 py-2.5 rounded-[10px] font-semibold bg-amber-500 text-white">
             <Plus className="w-4 h-4" />
-            Create Services
+            {t('create_service')}
           </button>
           <Popup open={open} setOpen={setOpen} editingService={editingService} setEditingService={setEditingService} />
         </div>
@@ -65,13 +68,13 @@ const Services = () => {
 
       <div className="bg-white border border-gray-200 rounded-[10px] overflow-hidden">
         <div className="p-4 flex flex-col lg:flex-row justify-between lg:items-center gap-4">
-          <h2 className="font-bold text-lg text-gray-800">Services Table</h2>
+          <h2 className="font-bold text-lg text-gray-800">{t('service_table')}</h2>
           <div className="flex flex-wrap items-center gap-3">
             <div className="flex items-center gap-2 border bg-white px-3 py-2 rounded-[10px]  transition-colors flex-1">
               <Search className="w-4 h-4 text-gray-400" />
               <input
                 type="text"
-                placeholder="Search"
+                placeholder={t('search')}
                 className="outline-none text-sm w-full"
                 value={search}
                 onChange={(e) => {
@@ -82,11 +85,11 @@ const Services = () => {
             </div>
             <button className="flex items-center gap-2 border bg-white px-4 py-2 rounded-[10px] text-gray-600 hover:bg-gray-50 transition-colors text-sm font-medium">
               <Filter className="w-4 h-4 text-gray-400" />
-              Filter
+              {t('filter')}
             </button>
             <button className="flex items-center gap-2 border bg-white px-4 py-2 rounded-[10px] text-gray-600 hover:bg-gray-50 transition-colors text-sm font-medium">
               <SortAscIcon className="w-4 h-4 text-gray-400" />
-              Sort by
+              {t('sort_by')}
             </button>
           </div>
         </div>
@@ -98,12 +101,12 @@ const Services = () => {
                 <th className="px-6 py-4 w-12 text-center">
                   <input type="checkbox" className="rounded border-gray-300 text-amber-500 focus:ring-amber-500 w-4 h-4" />
                 </th>
-                <th className="px-4 py-4 text-xs font-bold text-gray-500">ID</th>
-                <th className="px-4 py-4 text-xs font-bold text-gray-500">Service name</th>
-                <th className="px-4 py-4 text-xs font-bold text-gray-500">Description</th>
-                <th className="px-4 py-4 text-xs font-bold text-gray-500">Duration</th>
-                <th className="px-4 py-4 text-xs font-bold text-gray-500">Price</th>
-                <th className="px-4 py-4 text-xs font-bold text-gray-500">Category</th>
+                <th className="px-4 py-4 text-xs font-bold text-gray-500">{t('service_id')}</th>
+                <th className="px-4 py-4 text-xs font-bold text-gray-500">{t('service_name')}</th>
+                <th className="px-4 py-4 text-xs font-bold text-gray-500">{t('service_description')}</th>
+                <th className="px-4 py-4 text-xs font-bold text-gray-500">{t('service_duration')}</th>
+                <th className="px-4 py-4 text-xs font-bold text-gray-500">{t('service_price')}</th>
+                <th className="px-4 py-4 text-xs font-bold text-gray-500">{t('service_category')}</th>
                 <th className="px-4 py-4 text-xs font-bold text-gray-500 text-right"></th>
               </tr>
             </thead>
@@ -113,7 +116,7 @@ const Services = () => {
                   <td colSpan={8} className="px-4 py-10 text-center">
                     <div className="flex flex-col items-center gap-2">
                       <Loader2 className="h-8 w-8 animate-spin text-amber-500" />
-                      <span className="text-sm text-gray-500">Loading services...</span>
+                      <span className="text-sm text-gray-500">{t('loading_services')}</span>
                     </div>
                   </td>
                 </tr>
@@ -144,7 +147,7 @@ const Services = () => {
               ) : (
                 <tr>
                   <td colSpan={8} className="px-4 py-10 text-center text-gray-500">
-                    No services found.
+                    {t('no_services_found')}
                   </td>
                 </tr>
               )}
@@ -154,11 +157,11 @@ const Services = () => {
 
         <div className="p-4 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm font-medium text-gray-500 border-t border-t-gray-300 border-gray-100 bg-white">
           <div className="flex-1">
-            Showing {data?.data?.length || 0} results
+            {t('service_showing')} {data?.data?.length || 0} {t('service_results')}
           </div>
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
-              <span>Per page</span>
+              <span>{t('service_per_page')}</span>
               <div className="relative inline-block">
                 <Select value={limit.toString()} onValueChange={(val) => {
                   setLimit(Number(val));

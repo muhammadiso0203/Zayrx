@@ -4,12 +4,19 @@ import { Navigate, Outlet, useNavigate } from "react-router";
 import Cookies from 'js-cookie'
 import { getUserFromToken } from "@/utils/userUtils";
 import { User } from "lucide-react";
+import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
+import { useTranslation } from "react-i18next";
 
 
 const MainLayout = () => {
+  const { i18n } = useTranslation()
   const token = Cookies.get('token')
   const navigate = useNavigate();
-  
+
+  const changeLanguage = (lang: string) => {
+    i18n.changeLanguage(lang)
+  }
+
   if (!token) {
     return <Navigate to="/" />;
   }
@@ -22,6 +29,16 @@ const MainLayout = () => {
             <SidebarTrigger className="bg-white shadow-sm border border-gray-200 hover:bg-gray-50 rounded-[10px]" />
 
             <div className="flex items-center gap-4">
+              <Select value={i18n.language} onValueChange={changeLanguage}>
+                <SelectTrigger>
+                  <SelectValue placeholder={i18n.language} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="uz">Uzbek</SelectItem>
+                  <SelectItem value="eng">English</SelectItem>
+                  <SelectItem value="ru">Русский</SelectItem>
+                </SelectContent>
+              </Select>
               <div
                 className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors"
                 onClick={() => navigate("/layout/profile")}
