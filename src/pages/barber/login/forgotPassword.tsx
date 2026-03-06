@@ -1,16 +1,18 @@
 import { User2 } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
 
 const ForgotPassword = () => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const navigate = useNavigate();
 
   const validateEmail = (email: string) => {
-    if (!email) return "Email address is required";
+    if (!email) return t("authEmailRequired");
     if (!/^\S+@\S+\.\S+$/.test(email))
-      return "The email address you entered is wrong!";
+      return t("authEmailInvalid");
     return "";
   };
   return (
@@ -22,19 +24,18 @@ const ForgotPassword = () => {
           </div>
         </div>
         <div className="text-center mt-4 flex flex-col items-center justify-center">
-          <h3 className="text-2xl font-bold">Forgot Password</h3>
+          <h3 className="text-2xl font-bold">{t("authForgotPasswordTitle")}</h3>
           <p className="text-gray-500 mt-1 w-80">
-            Enter your email address and we'll send you password reset
-            instructions.
+            {t("authForgotPasswordSub")}
           </p>
         </div>
         <div className="mt-4">
           <label className="text-sm font-medium text-gray-600">
-            Email Address <span className="text-red-500">*</span>
+            {t("authEmail")} <span className="text-red-500">*</span>
           </label>
           <input
             type="email"
-            placeholder="Enter your email"
+            placeholder={t("authEmailPlaceholder")}
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
@@ -59,14 +60,14 @@ const ForgotPassword = () => {
     }
   `}
         >
-          Forgot Password
+          {t("authForgotPasswordBtn")}
         </button>
         <div className="flex flex-col items-center justify-center mt-6 font-semibold">
           <p className="text-gray-400 text-[15px] w-50">
-            Don't have access anymore?
+            {t("authNoAccess")}
           </p>
           <Link to={"/"} className="text-[15px] text-yellow-500">
-            Try another method
+            {t("authTryAnotherMethod")}
           </Link>
         </div>
       </div>

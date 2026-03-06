@@ -1,4 +1,5 @@
 import { LogOut } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface LogoutPopupProps {
     open: boolean;
@@ -7,6 +8,7 @@ interface LogoutPopupProps {
 }
 
 const LogoutPopup = ({ open, setOpen, onConfirm }: LogoutPopupProps) => {
+    const { t } = useTranslation();
     if (!open) return null;
 
     return (
@@ -23,9 +25,9 @@ const LogoutPopup = ({ open, setOpen, onConfirm }: LogoutPopupProps) => {
                     </div>
                 </div>
 
-                <h2 className="text-[28px] font-bold text-gray-900 mb-3">Logout</h2>
+                <h2 className="text-[28px] font-bold text-gray-900 mb-3">{t("logoutConfirmTitle")}</h2>
                 <p className="text-gray-500 text-lg mb-10 leading-relaxed">
-                    Are you sure want to Logout to Captain?
+                    {t("logoutConfirmSub")}
                 </p>
 
                 <div className="flex gap-4 w-full">
@@ -33,7 +35,7 @@ const LogoutPopup = ({ open, setOpen, onConfirm }: LogoutPopupProps) => {
                         onClick={() => setOpen(false)}
                         className="flex-1 px-6 py-4 border-2 border-gray-100 rounded-[10px] font-bold text-gray-600 hover:border-gray-200 transition-all duration-200 cursor-pointer text-base"
                     >
-                        Cancel
+                        {t("logoutCancelBtn")}
                     </button>
                     <button
                         onClick={() => {
@@ -42,7 +44,7 @@ const LogoutPopup = ({ open, setOpen, onConfirm }: LogoutPopupProps) => {
                         }}
                         className="flex-1 px-6 py-4 bg-[#e11d48] hover:bg-[#be123c] rounded-[10px] font-bold text-white shadow-xl shadow-red-200 transition-all duration-200 cursor-pointer text-base"
                     >
-                        Yes, Logout
+                        {t("logoutYesBtn")}
                     </button>
                 </div>
             </div>

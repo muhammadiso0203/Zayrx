@@ -1,7 +1,9 @@
 import { Eye, EyeOff, User2 } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const NewPassword = () => {
+    const { t } = useTranslation();
     const [show, setShow] = useState(false)
     const [newShow, setNewShow] = useState(false)
     const [password, setPassword] = useState("")
@@ -15,16 +17,16 @@ const NewPassword = () => {
           </div>
         </div>
         <div className="text-center mt-4">
-          <h3 className="text-2xl font-bold">Create New Password</h3>
-          <p className="text-gray-500 mt-1 text-[15px]">Please enter a new password. Your new password must be different from previous password</p>
+          <h3 className="text-2xl font-bold">{t("authCreateNewPasswordTitle")}</h3>
+          <p className="text-gray-500 mt-1 text-[15px]">{t("authCreateNewPasswordSub")}</p>
         </div>
         <div className="relative mt-4">
             <label className="text-sm font-medium text-gray-600">
-              New Password
+              {t("authNewPassword")}
             </label>
             <input
               type={!show ? "text" : "password"}
-              placeholder="Enter your password"
+              placeholder={t("authPasswordPlaceholder")}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full mt-1 px-4 py-3 rounded-xl border border-gray-200 outline-none"
@@ -39,11 +41,11 @@ const NewPassword = () => {
           </div>
           <div className="relative mt-4">
             <label className="text-sm font-medium text-gray-600">
-              Confirm New Password <span className="text-red-500">*</span>
+              {t("authConfirmNewPassword")} <span className="text-red-500">*</span>
             </label>
             <input
-              type={!show ? "text" : "password"}
-              placeholder="Enter your confirm password"
+              type={!newShow ? "text" : "password"}
+              placeholder={t("authConfirmNewPasswordPlaceholder")}
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               className="w-full mt-1 px-4 py-3 rounded-xl border border-gray-200 outline-none"
@@ -65,7 +67,7 @@ const NewPassword = () => {
     }
   `}
         >
-          Reset password
+          {t("authResetPasswordBtn")}
         </button>
       </div>
     </div>

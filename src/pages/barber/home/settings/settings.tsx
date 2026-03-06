@@ -1,7 +1,9 @@
 import { Bell, Eye, EyeOff, Globe, Mail, Moon, Sun, User, CreditCard, FileText, Link as LinkIcon, Clock, Shield } from "lucide-react"
 import { useState } from "react"
+import { useTranslation } from "react-i18next";
 
 const Settings = () => {
+  const { t } = useTranslation();
   const [show, setShow] = useState(false)
   const [show1, setShow1] = useState(false)
   const [activeTab, setActiveTab] = useState("General")
@@ -11,30 +13,30 @@ const Settings = () => {
   const [smsNotifications, setSmsNotifications] = useState(false)
 
   const sidebarItems = [
-    { name: "General", icon: User },
-    { name: "Plan & Pricing", icon: CreditCard },
-    { name: "My Account", icon: User },
-    { name: "Payment & Billing", icon: CreditCard },
-    { name: "Tax & Duties", icon: FileText },
-    { name: "Link Account", icon: LinkIcon },
-    { name: "Time & Language", icon: Clock },
-    { name: "Password", icon: Shield },
-    { name: "Notifications", icon: Bell },
+    { name: t("settings_tab_general"), id: "General", icon: User },
+    { name: t("settings_tab_plan"), id: "Plan & Pricing", icon: CreditCard },
+    { name: t("settings_tab_account"), id: "My Account", icon: User },
+    { name: t("settings_tab_payment"), id: "Payment & Billing", icon: CreditCard },
+    { name: t("settings_tab_tax"), id: "Tax & Duties", icon: FileText },
+    { name: t("settings_tab_link"), id: "Link Account", icon: LinkIcon },
+    { name: t("settings_tab_time"), id: "Time & Language", icon: Clock },
+    { name: t("settings_tab_password"), id: "Password", icon: Shield },
+    { name: t("settings_tab_notifications"), id: "Notifications", icon: Bell },
   ]
 
   return (
     <div className="p-1">
-      <h1 className="text-2xl font-bold text-gray-900 mb-3">Settings</h1>
+      <h1 className="text-2xl font-bold text-gray-900 mb-3">{t("settings_title")}</h1>
       <hr className="border-gray-200" />
 
       <div className="flex items-center justify-between gap-2 mt-4 mb-6">
         <div className="flex items-center gap-2 text-sm">
-          <span className="text-gray-500 font-medium">User</span>
+          <span className="text-gray-500 font-medium">{t("settings_user")}</span>
           <span className="text-gray-300">/</span>
-          <span className="text-gray-900 font-bold">Settings</span>
+          <span className="text-gray-900 font-bold">{t("settings_title")}</span>
         </div>
         <button className="px-6 py-2.5 bg-amber-500 hover:bg-amber-600 transition-colors rounded-xl font-bold shadow-sm text-white cursor-pointer text-sm">
-          Save Changes
+          {t("settings_save_changes")}
         </button>
       </div>
 
@@ -45,9 +47,9 @@ const Settings = () => {
               const Icon = item.icon
               return (
                 <button
-                  key={item.name}
-                  onClick={() => setActiveTab(item.name)}
-                  className={`w-full text-left px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 cursor-pointer flex items-center gap-3 ${activeTab === item.name
+                  key={item.id}
+                  onClick={() => setActiveTab(item.id)}
+                  className={`w-full text-left px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 cursor-pointer flex items-center gap-3 ${activeTab === item.id
                     ? "bg-amber-50 border border-amber-200 text-amber-700"
                     : "text-gray-500 hover:bg-gray-50"
                     }`}
@@ -65,15 +67,15 @@ const Settings = () => {
           {activeTab === "General" && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               <div>
-                <h2 className="text-xl font-bold text-gray-900 mb-2">General Settings</h2>
+                <h2 className="text-xl font-bold text-gray-900 mb-2">{t("settings_general_title")}</h2>
                 <p className="text-gray-500 text-sm leading-relaxed max-w-xs">
-                  Manage your general account settings and preferences.
+                  {t("settings_general_desc")}
                 </p>
               </div>
 
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">Business Name</label>
+                  <label className="text-sm font-bold text-gray-700">{t("settings_business_name")}</label>
                   <input
                     type="text"
                     placeholder="Elite BarberShop"
@@ -82,7 +84,7 @@ const Settings = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">Business Email</label>
+                  <label className="text-sm font-bold text-gray-700">{t("settings_business_email")}</label>
                   <input
                     type="email"
                     placeholder="info@barbershop.uz"
@@ -91,7 +93,7 @@ const Settings = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">Phone Number</label>
+                  <label className="text-sm font-bold text-gray-700">{t("settings_phone")}</label>
                   <input
                     type="tel"
                     placeholder="+998 90 123 45 67"
@@ -100,7 +102,7 @@ const Settings = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">Address</label>
+                  <label className="text-sm font-bold text-gray-700">{t("settings_address")}</label>
                   <textarea
                     placeholder="Toshkent, Amir Temur ko'chasi 108"
                     rows={3}
@@ -112,8 +114,8 @@ const Settings = () => {
                   <div className="flex items-center gap-3">
                     {isDarkMode ? <Moon className="w-5 h-5 text-gray-600" /> : <Sun className="w-5 h-5 text-amber-500" />}
                     <div>
-                      <p className="font-bold text-sm text-gray-900">Dark Mode</p>
-                      <p className="text-xs text-gray-500">Toggle dark mode theme</p>
+                      <p className="font-bold text-sm text-gray-900">{t("settings_dark_mode")}</p>
+                      <p className="text-xs text-gray-500">{t("settings_dark_mode_desc")}</p>
                     </div>
                   </div>
                   <button
@@ -131,9 +133,9 @@ const Settings = () => {
           {activeTab === "Plan & Pricing" && (
             <div className="space-y-8">
               <div>
-                <h2 className="text-xl font-bold text-gray-900 mb-2">Plan & Pricing</h2>
+                <h2 className="text-xl font-bold text-gray-900 mb-2">{t("settings_plan_title")}</h2>
                 <p className="text-gray-500 text-sm leading-relaxed">
-                  Choose the plan that works best for your business.
+                  {t("settings_plan_desc")}
                 </p>
               </div>
 
@@ -141,8 +143,8 @@ const Settings = () => {
                 {/* Basic Plan */}
                 <div className="border-2 border-gray-200 rounded-2xl p-6 hover:border-amber-500 transition-colors">
                   <div className="mb-4">
-                    <h3 className="text-lg font-bold text-gray-900">Basic</h3>
-                    <p className="text-sm text-gray-500">For small businesses</p>
+                    <h3 className="text-lg font-bold text-gray-900">{t("settings_plan_basic")}</h3>
+                    <p className="text-sm text-gray-500">{t("settings_plan_basic_desc")}</p>
                   </div>
                   <div className="mb-6">
                     <span className="text-3xl font-bold text-gray-900">$29</span>
@@ -163,18 +165,18 @@ const Settings = () => {
                     </li>
                   </ul>
                   <button className="w-full py-2.5 border-2 border-gray-300 rounded-xl font-bold text-gray-700 hover:bg-gray-50 transition-colors">
-                    Current Plan
+                    {t("settings_plan_current")}
                   </button>
                 </div>
 
                 {/* Pro Plan */}
                 <div className="border-2 border-amber-500 rounded-2xl p-6 relative bg-amber-50/30">
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-white px-3 py-1 rounded-full text-xs font-bold">
-                    Popular
+                    {t("settings_plan_popular")}
                   </div>
                   <div className="mb-4">
-                    <h3 className="text-lg font-bold text-gray-900">Pro</h3>
-                    <p className="text-sm text-gray-500">For growing businesses</p>
+                    <h3 className="text-lg font-bold text-gray-900">{t("settings_plan_pro")}</h3>
+                    <p className="text-sm text-gray-500">{t("settings_plan_pro_desc")}</p>
                   </div>
                   <div className="mb-6">
                     <span className="text-3xl font-bold text-gray-900">$79</span>
@@ -199,15 +201,15 @@ const Settings = () => {
                     </li>
                   </ul>
                   <button className="w-full py-2.5 bg-amber-500 text-white rounded-xl font-bold hover:bg-amber-600 transition-colors">
-                    Upgrade Now
+                    {t("settings_plan_upgrade")}
                   </button>
                 </div>
 
                 {/* Enterprise Plan */}
                 <div className="border-2 border-gray-200 rounded-2xl p-6 hover:border-amber-500 transition-colors">
                   <div className="mb-4">
-                    <h3 className="text-lg font-bold text-gray-900">Enterprise</h3>
-                    <p className="text-sm text-gray-500">For large businesses</p>
+                    <h3 className="text-lg font-bold text-gray-900">{t("settings_plan_enterprise")}</h3>
+                    <p className="text-sm text-gray-500">{t("settings_plan_enterprise_desc")}</p>
                   </div>
                   <div className="mb-6">
                     <span className="text-3xl font-bold text-gray-900">$199</span>
@@ -232,7 +234,7 @@ const Settings = () => {
                     </li>
                   </ul>
                   <button className="w-full py-2.5 border-2 border-amber-500 text-amber-600 rounded-xl font-bold hover:bg-amber-50 transition-colors">
-                    Contact Sales
+                    {t("settings_plan_contact")}
                   </button>
                 </div>
               </div>
@@ -243,27 +245,27 @@ const Settings = () => {
           {activeTab === "My Account" && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               <div>
-                <h2 className="text-xl font-bold text-gray-900 mb-2">My Account</h2>
+                <h2 className="text-xl font-bold text-gray-900 mb-2">{t("settings_account_title")}</h2>
                 <p className="text-gray-500 text-sm leading-relaxed max-w-xs">
-                  Manage your personal account information.
+                  {t("settings_account_desc")}
                 </p>
               </div>
 
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
-                  <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">
+                  <div className="w-20 h-20 bg-linear-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">
                     SR
                   </div>
                   <div>
                     <button className="px-4 py-2 bg-amber-500 text-white rounded-lg text-sm font-semibold hover:bg-amber-600 transition-colors">
-                      Change Photo
+                      {t("settings_change_photo")}
                     </button>
-                    <p className="text-xs text-gray-500 mt-1">JPG, PNG or GIF. Max 2MB</p>
+                    <p className="text-xs text-gray-500 mt-1">{t("settings_photo_hint")}</p>
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">Full Name</label>
+                  <label className="text-sm font-bold text-gray-700">{t("settings_full_name")}</label>
                   <input
                     type="text"
                     placeholder="Sardor Rahimov"
@@ -272,7 +274,7 @@ const Settings = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">Email Address</label>
+                  <label className="text-sm font-bold text-gray-700">{t("settings_email")}</label>
                   <input
                     type="email"
                     placeholder="sardor@example.com"
@@ -281,7 +283,7 @@ const Settings = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">Phone Number</label>
+                  <label className="text-sm font-bold text-gray-700">{t("settings_phone")}</label>
                   <input
                     type="tel"
                     placeholder="+998 90 123 45 67"
@@ -290,7 +292,7 @@ const Settings = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">Bio</label>
+                  <label className="text-sm font-bold text-gray-700">{t("settings_bio")}</label>
                   <textarea
                     placeholder="Professional barber with 5+ years of experience..."
                     rows={4}
@@ -305,17 +307,17 @@ const Settings = () => {
           {activeTab === "Payment & Billing" && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               <div>
-                <h2 className="text-xl font-bold text-gray-900 mb-2">Payment & Billing</h2>
+                <h2 className="text-xl font-bold text-gray-900 mb-2">{t("settings_payment_title")}</h2>
                 <p className="text-gray-500 text-sm leading-relaxed max-w-xs">
-                  Manage your payment methods and billing information.
+                  {t("settings_payment_desc")}
                 </p>
               </div>
 
               <div className="space-y-6">
-                <div className="border border-gray-200 rounded-xl p-4 bg-gradient-to-br from-gray-900 to-gray-700 text-white">
+                <div className="border border-gray-200 rounded-xl p-4 bg-linear-to-br from-gray-900 to-gray-700 text-white">
                   <div className="flex justify-between items-start mb-8">
                     <div>
-                      <p className="text-xs text-gray-300">Card Holder</p>
+                      <p className="text-xs text-gray-300">{t("settings_card_holder")}</p>
                       <p className="font-bold">SARDOR RAHIMOV</p>
                     </div>
                     <CreditCard className="w-8 h-8 text-amber-400" />
@@ -325,7 +327,7 @@ const Settings = () => {
                   </div>
                   <div className="flex justify-between text-xs">
                     <div>
-                      <p className="text-gray-400">Expires</p>
+                      <p className="text-gray-400">{t("settings_expires")}</p>
                       <p className="font-semibold">12/25</p>
                     </div>
                     <div>
@@ -336,11 +338,11 @@ const Settings = () => {
                 </div>
 
                 <button className="w-full py-2.5 border-2 border-dashed border-gray-300 rounded-xl font-bold text-gray-600 hover:border-amber-500 hover:text-amber-600 transition-colors">
-                  + Add New Card
+                  {t("settings_add_card")}
                 </button>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">Billing Address</label>
+                  <label className="text-sm font-bold text-gray-700">{t("settings_billing_address")}</label>
                   <input
                     type="text"
                     placeholder="Toshkent, Uzbekistan"
@@ -350,7 +352,7 @@ const Settings = () => {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-gray-700">City</label>
+                    <label className="text-sm font-bold text-gray-700">{t("settings_city")}</label>
                     <input
                       type="text"
                       placeholder="Toshkent"
@@ -358,7 +360,7 @@ const Settings = () => {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-gray-700">Postal Code</label>
+                    <label className="text-sm font-bold text-gray-700">{t("settings_postal_code")}</label>
                     <input
                       type="text"
                       placeholder="100000"
@@ -374,15 +376,15 @@ const Settings = () => {
           {activeTab === "Tax & Duties" && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               <div>
-                <h2 className="text-xl font-bold text-gray-900 mb-2">Tax & Duties</h2>
+                <h2 className="text-xl font-bold text-gray-900 mb-2">{t("settings_tax_title")}</h2>
                 <p className="text-gray-500 text-sm leading-relaxed max-w-xs">
-                  Configure your tax and duty settings for compliance.
+                  {t("settings_tax_desc")}
                 </p>
               </div>
 
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">Tax ID / INN</label>
+                  <label className="text-sm font-bold text-gray-700">{t("settings_tax_id")}</label>
                   <input
                     type="text"
                     placeholder="123456789"
@@ -391,7 +393,7 @@ const Settings = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">Company Registration Number</label>
+                  <label className="text-sm font-bold text-gray-700">{t("settings_company_reg")}</label>
                   <input
                     type="text"
                     placeholder="UZ-12345678"
@@ -400,7 +402,7 @@ const Settings = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">VAT Number</label>
+                  <label className="text-sm font-bold text-gray-700">{t("settings_vat_number")}</label>
                   <input
                     type="text"
                     placeholder="UZ123456789"
@@ -409,7 +411,7 @@ const Settings = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">Tax Rate (%)</label>
+                  <label className="text-sm font-bold text-gray-700">{t("settings_tax_rate")}</label>
                   <input
                     type="number"
                     placeholder="12"
@@ -419,7 +421,7 @@ const Settings = () => {
 
                 <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
                   <p className="text-sm text-blue-800">
-                    <strong>Note:</strong> Tax settings will be applied to all future transactions. Please consult with your accountant before making changes.
+                    {t("settings_tax_note")}
                   </p>
                 </div>
               </div>
@@ -430,9 +432,9 @@ const Settings = () => {
           {activeTab === "Link Account" && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               <div>
-                <h2 className="text-xl font-bold text-gray-900 mb-2">Link Account</h2>
+                <h2 className="text-xl font-bold text-gray-900 mb-2">{t("settings_link_title")}</h2>
                 <p className="text-gray-500 text-sm leading-relaxed max-w-xs">
-                  Connect your social media accounts to expand your reach.
+                  {t("settings_link_desc")}
                 </p>
               </div>
 
@@ -498,15 +500,15 @@ const Settings = () => {
           {activeTab === "Time & Language" && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               <div>
-                <h2 className="text-xl font-bold text-gray-900 mb-2">Time & Language</h2>
+                <h2 className="text-xl font-bold text-gray-900 mb-2">{t("settings_time_title")}</h2>
                 <p className="text-gray-500 text-sm leading-relaxed max-w-xs">
-                  Set your timezone and language preferences.
+                  {t("settings_time_desc")}
                 </p>
               </div>
 
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">Timezone</label>
+                  <label className="text-sm font-bold text-gray-700">{t("settings_timezone")}</label>
                   <select className="w-full px-3 py-2.5 rounded-[10px] border border-gray-200 bg-white">
                     <option>(GMT+5:00) Tashkent</option>
                     <option>(GMT+3:00) Moscow</option>
@@ -517,7 +519,7 @@ const Settings = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">Language</label>
+                  <label className="text-sm font-bold text-gray-700">{t("settings_language")}</label>
                   <select className="w-full px-3 py-2.5 rounded-[10px] border border-gray-200 bg-white">
                     <option>O'zbek tili</option>
                     <option>Русский</option>
@@ -526,7 +528,7 @@ const Settings = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">Date Format</label>
+                  <label className="text-sm font-bold text-gray-700">{t("settings_date_format")}</label>
                   <select className="w-full px-3 py-2.5 rounded-[10px] border border-gray-200 bg-white">
                     <option>DD/MM/YYYY</option>
                     <option>MM/DD/YYYY</option>
@@ -535,7 +537,7 @@ const Settings = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">Time Format</label>
+                  <label className="text-sm font-bold text-gray-700">{t("settings_time_format")}</label>
                   <select className="w-full px-3 py-2.5 rounded-[10px] border border-gray-200 bg-white">
                     <option>24-hour (14:30)</option>
                     <option>12-hour (2:30 PM)</option>
@@ -543,7 +545,7 @@ const Settings = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">Currency</label>
+                  <label className="text-sm font-bold text-gray-700">{t("settings_currency")}</label>
                   <select className="w-full px-3 py-2.5 rounded-[10px] border border-gray-200 bg-white">
                     <option>UZS - Uzbek Som</option>
                     <option>USD - US Dollar</option>
@@ -559,16 +561,16 @@ const Settings = () => {
           {activeTab === "Password" && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               <div>
-                <h2 className="text-xl font-bold text-gray-900 mb-2">Password</h2>
+                <h2 className="text-xl font-bold text-gray-900 mb-2">{t("settings_pass_title")}</h2>
                 <p className="text-gray-500 text-sm leading-relaxed max-w-xs">
-                  Change your password to keep your account secure.
+                  {t("settings_pass_desc")}
                 </p>
               </div>
 
               <div className="space-y-6">
                 <div className="relative space-y-2">
                   <div className="flex items-center gap-2">
-                    <label className="text-sm font-bold text-gray-700">Current Password</label>
+                    <label className="text-sm font-bold text-gray-700">{t("settings_current_pass")}</label>
                     <span className="text-red-500">*</span>
                   </div>
                   <input
@@ -586,7 +588,7 @@ const Settings = () => {
 
                 <div className="relative space-y-2">
                   <div className="flex items-center gap-2">
-                    <label className="text-sm font-bold text-gray-700">New Password</label>
+                    <label className="text-sm font-bold text-gray-700">{t("settings_new_pass")}</label>
                     <span className="text-red-500">*</span>
                   </div>
                   <input
@@ -603,7 +605,7 @@ const Settings = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">Confirm New Password</label>
+                  <label className="text-sm font-bold text-gray-700">{t("settings_confirm_pass")}</label>
                   <input
                     type="password"
                     placeholder="Confirm new password"
@@ -612,12 +614,12 @@ const Settings = () => {
                 </div>
 
                 <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
-                  <p className="text-sm text-amber-800 font-semibold mb-2">Password Requirements:</p>
+                  <p className="text-sm text-amber-800 font-semibold mb-2">{t("settings_pass_reqs")}</p>
                   <ul className="space-y-1 text-xs text-amber-700">
-                    <li>• At least 8 characters long</li>
-                    <li>• Contains uppercase and lowercase letters</li>
-                    <li>• Contains at least one number</li>
-                    <li>• Contains at least one special character</li>
+                    <li>• {t("settings_pass_req_1")}</li>
+                    <li>• {t("settings_pass_req_2")}</li>
+                    <li>• {t("settings_pass_req_3")}</li>
+                    <li>• {t("settings_pass_req_4")}</li>
                   </ul>
                 </div>
               </div>
@@ -628,9 +630,9 @@ const Settings = () => {
           {activeTab === "Notifications" && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               <div>
-                <h2 className="text-xl font-bold text-gray-900 mb-2">Notifications</h2>
+                <h2 className="text-xl font-bold text-gray-900 mb-2">{t("settings_notif_title")}</h2>
                 <p className="text-gray-500 text-sm leading-relaxed max-w-xs">
-                  Manage how you receive notifications and updates.
+                  {t("settings_notif_desc")}
                 </p>
               </div>
 
@@ -639,8 +641,8 @@ const Settings = () => {
                   <div className="flex items-center gap-3">
                     <Mail className="w-5 h-5 text-gray-600" />
                     <div>
-                      <p className="font-bold text-sm text-gray-900">Email Notifications</p>
-                      <p className="text-xs text-gray-500">Receive updates via email</p>
+                      <p className="font-bold text-sm text-gray-900">{t("settings_notif_email")}</p>
+                      <p className="text-xs text-gray-500">{t("settings_notif_email_desc")}</p>
                     </div>
                   </div>
                   <button
@@ -655,8 +657,8 @@ const Settings = () => {
                   <div className="flex items-center gap-3">
                     <Bell className="w-5 h-5 text-gray-600" />
                     <div>
-                      <p className="font-bold text-sm text-gray-900">Push Notifications</p>
-                      <p className="text-xs text-gray-500">Receive push notifications</p>
+                      <p className="font-bold text-sm text-gray-900">{t("settings_notif_push")}</p>
+                      <p className="text-xs text-gray-500">{t("settings_notif_push_desc")}</p>
                     </div>
                   </div>
                   <button
@@ -671,8 +673,8 @@ const Settings = () => {
                   <div className="flex items-center gap-3">
                     <Globe className="w-5 h-5 text-gray-600" />
                     <div>
-                      <p className="font-bold text-sm text-gray-900">SMS Notifications</p>
-                      <p className="text-xs text-gray-500">Receive SMS updates</p>
+                      <p className="font-bold text-sm text-gray-900">{t("settings_notif_sms")}</p>
+                      <p className="text-xs text-gray-500">{t("settings_notif_sms_desc")}</p>
                     </div>
                   </div>
                   <button
@@ -684,27 +686,27 @@ const Settings = () => {
                 </div>
 
                 <div className="border-t border-gray-200 pt-6 mt-6">
-                  <h3 className="font-bold text-sm text-gray-900 mb-4">Notification Preferences</h3>
+                  <h3 className="font-bold text-sm text-gray-900 mb-4">{t("settings_notif_prefs")}</h3>
                   <div className="space-y-3">
                     <label className="flex items-center gap-3 cursor-pointer">
                       <input type="checkbox" defaultChecked className="w-4 h-4 text-amber-500 rounded" />
-                      <span className="text-sm text-gray-700">New booking confirmations</span>
+                      <span className="text-sm text-gray-700">{t("settings_notif_new_booking")}</span>
                     </label>
                     <label className="flex items-center gap-3 cursor-pointer">
                       <input type="checkbox" defaultChecked className="w-4 h-4 text-amber-500 rounded" />
-                      <span className="text-sm text-gray-700">Booking cancellations</span>
+                      <span className="text-sm text-gray-700">{t("settings_notif_cancel_booking")}</span>
                     </label>
                     <label className="flex items-center gap-3 cursor-pointer">
                       <input type="checkbox" className="w-4 h-4 text-amber-500 rounded" />
-                      <span className="text-sm text-gray-700">Weekly reports</span>
+                      <span className="text-sm text-gray-700">{t("settings_notif_weekly")}</span>
                     </label>
                     <label className="flex items-center gap-3 cursor-pointer">
                       <input type="checkbox" className="w-4 h-4 text-amber-500 rounded" />
-                      <span className="text-sm text-gray-700">Marketing updates</span>
+                      <span className="text-sm text-gray-700">{t("settings_notif_marketing")}</span>
                     </label>
                     <label className="flex items-center gap-3 cursor-pointer">
                       <input type="checkbox" defaultChecked className="w-4 h-4 text-amber-500 rounded" />
-                      <span className="text-sm text-gray-700">Payment confirmations</span>
+                      <span className="text-sm text-gray-700">{t("settings_notif_payment")}</span>
                     </label>
                   </div>
                 </div>

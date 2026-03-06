@@ -16,17 +16,19 @@ import {
 
 import img from "@/assets/image.png"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useTranslation } from "react-i18next";
 
 const Overview = () => {
+  const {t} = useTranslation();
   return (
     <>
-      <h1 className="font-bold text-2xl mb-6">Overview</h1>
+      <h1 className="font-bold text-2xl mb-6">{t("overview")}</h1>
       <hr />
       <div className="flex justify-between mt-6">
         <h1 className="text-gray-500">
-          Home / <span className="font-bold text-black">Overview</span>
+          {t("home")} / <span className="font-bold text-black">{t("overview")}</span>
         </h1>
-        <button className="border px-3 py-2 rounded-[10px] font-bold">Generate Reports</button>
+        <button className="border px-3 py-2 rounded-[10px] font-bold">{t("generateReports")}</button>
       </div>
       <div className="flex gap-6">
         <div>
@@ -38,7 +40,7 @@ const Overview = () => {
 
               <div className="flex justify-between">
                 <div>
-                  <p className="text-sm text-gray-500">Total Revenue</p>
+                  <p className="text-sm text-gray-500">{t("totalRevenue")}</p>
                   <h3 className="text-xl font-semibold text-gray-900">
                     $23,249.00
                   </h3>
@@ -58,7 +60,7 @@ const Overview = () => {
 
               <div className="flex justify-between">
                 <div>
-                  <p className="text-sm text-gray-500">Total Bookings</p>
+                  <p className="text-sm text-gray-500">{t("totalBookings")}</p>
                   <h3 className="text-xl font-semibold text-gray-900">2,095</h3>
                 </div>
                 <div className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-red-500 bg-red-50 px-2 py-1 rounded-md">
@@ -75,7 +77,7 @@ const Overview = () => {
 
               <div className="flex justify-between">
                 <div>
-                  <p className="text-sm text-gray-500">Total Services</p>
+                  <p className="text-sm text-gray-500">{t("totalService")}</p>
                   <h3 className="text-xl font-semibold text-gray-900">27</h3>
                 </div>
                 <div className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-green-500 bg-green-50 px-2 py-1 rounded-md">
@@ -87,17 +89,17 @@ const Overview = () => {
           </div>
           <div className=" bg-white rounded-2xl border border-gray-200 p-6 mt-6">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-lg font-bold">Revenue Analytics</h2>
+              <h2 className="text-lg font-bold">{t("revenueAnalytics")}</h2>
               <div className="flex gap-2">
                 <Select>
                   <SelectTrigger className="w-40">
-                    <SelectValue placeholder="Bar Chart" />
+                    <SelectValue placeholder={t("barChart")} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      <SelectItem value="bar">Bar Chart</SelectItem>
-                      <SelectItem value="line">Line Chart</SelectItem>
-                      <SelectItem value="area">Area Chart</SelectItem>
+                      <SelectItem value="bar">{t("barChart")}</SelectItem>
+                      <SelectItem value="line">{t("lineChart")}</SelectItem>
+                      <SelectItem value="area">{t("areaChart")}</SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
@@ -114,7 +116,7 @@ const Overview = () => {
                   <ArrowDownRight className="w-4 h-4 mr-1" />
                   4,5%
                 </div>
-                <span className="text-sm text-gray-400">Last updated: May 28, 2025</span>
+                <span className="text-sm text-gray-400">{t("lastUpdated")}</span>
               </div>
 
               <div className="relative h-64 mt-8">
@@ -150,7 +152,7 @@ const Overview = () => {
         </div>
         <div className="w-full mt-6 bg-white rounded-2xl border border-gray-200 p-6 flex flex-col">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-lg font-bold">Best Performance Staff</h2>
+            <h2 className="text-lg font-bold">{t("bestPerformanceStaff")}</h2>
             <button className="p-1.5 border rounded-lg text-gray-400 hover:bg-gray-50">
               <RefreshCcw className="w-4 h-4" />
             </button>
@@ -188,21 +190,21 @@ const Overview = () => {
 
       <div className="bg-white rounded-2xl border border-gray-200 mt-6 overflow-hidden">
         <div className="p-6 flex justify-between items-center border-b border-gray-100">
-          <h2 className="text-lg font-bold">Recent Bookings</h2>
+          <h2 className="text-lg font-bold">{t("recentBookings")}</h2>
           <div className="flex gap-2">
             <div className="relative">
               <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
                 type="text"
-                placeholder="Search"
+                placeholder={t("search")}
                 className="pl-10 pr-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-yellow-500 w-64"
               />
             </div>
             <button className="flex items-center gap-2 border px-4 py-2 rounded-lg text-sm font-medium text-gray-600">
-              <Filter className="w-4 h-4" /> Filter
+              <Filter className="w-4 h-4" /> {t("filter")}
             </button>
             <button className="flex items-center gap-2 border px-4 py-2 rounded-lg text-sm font-medium text-gray-600">
-              <ArrowUpDown className="w-4 h-4" /> Sort by
+              <ArrowUpDown className="w-4 h-4" /> {t("sortBy")}
             </button>
           </div>
         </div>
@@ -212,12 +214,12 @@ const Overview = () => {
             <thead className="bg-gray-50 text-gray-500 text-xs uppercase font-medium">
               <tr>
                 <th className="p-4"><input type="checkbox" className="rounded" /></th>
-                <th className="p-4">No</th>
-                <th className="p-4">Customer Name</th>
-                <th className="p-4">Services</th>
-                <th className="p-4">Booking Date</th>
-                <th className="p-4">Staff Name</th>
-                <th className="p-4 text-center">Status</th>
+                <th className="p-4">{t("Overno")}</th>
+                <th className="p-4">{t("OvercustomerName")}</th>
+                <th className="p-4">{t("Overservices")}</th>
+                <th className="p-4">{t("OverbookingDate")}</th>
+                <th className="p-4">{t("OverstaffName")}</th>
+                <th className="p-4 text-center">{t("Overstatus")}</th>
                 <th className="p-4"></th>
               </tr>
             </thead>
@@ -241,7 +243,7 @@ const Overview = () => {
                       row.statusColor === 'blue' ? 'bg-blue-50 text-blue-500 border-blue-200' :
                         'bg-emerald-50 text-emerald-500 border-emerald-200'
                       }`}>
-                      • {row.status}
+                      • {t(`status_${row.status.toLowerCase()}`)}
                     </span>
                   </td>
                   <td className="p-4 text-right">
@@ -256,13 +258,13 @@ const Overview = () => {
         </div>
 
         <div className="p-6 flex justify-between items-center text-sm border-t border-gray-100">
-          <p className="text-gray-500">Showing 1 to 5 of, 100 results</p>
+          <p className="text-gray-500">{t("overShowing")} 1 to 5 of, 100 {t("overNatija")}</p>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
-              <span className="text-gray-500">Per page</span>
+              <span className="text-gray-500">{t("overPerPage")}</span>
               <Select>
                 <SelectTrigger className="w-20">
-                  <SelectValue placeholder="10" />
+                  <SelectValue placeholder="10" />'
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
@@ -276,7 +278,7 @@ const Overview = () => {
             <div className="flex items-center gap-1">
               <button className="p-1.5 border rounded-md text-gray-400"><ChevronLeft className="w-4 h-4" /></button>
               {[1].map((page) => (
-                <button key={page} className={`w-8 h-8 rounded-md flex items-center justify-center font-medium ${page === 3 ? 'bg-yellow-500 text-white' : 'text-gray-500 hover:bg-gray-50'}`}>
+                <button key={page} className={`w-8 h-8 rounded-md flex items-center justify-center font-medium ${page === 1 ? 'bg-yellow-500 text-white' : 'text-gray-500 hover:bg-gray-50'}`}>
                   {page}
                 </button>
               ))}

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { useRegisterStaff } from "../../service/hooks/useStaff";
 import { useUpdateUser } from "../../service/hooks/useUser";
+import { useTranslation } from "react-i18next";
 
 interface PopupProps {
     open: boolean;
@@ -12,6 +13,7 @@ interface PopupProps {
 }
 
 const Popup = ({ open, setOpen, data }: PopupProps) => {
+    const { t } = useTranslation();
     const [phoneNumber, setPhoneNumber] = useState("");
     const [password, setPassword] = useState("");
     const [show, setShow] = useState(false);
@@ -40,12 +42,12 @@ const Popup = ({ open, setOpen, data }: PopupProps) => {
                 },
                 {
                     onSuccess: () => {
-                        toast.success("Foydalanuvchi muvaffaqiyatli yangilandi", { position: "top-right" });
+                        toast.success(t("staff_updated_success"), { position: "top-right" });
                         client.invalidateQueries({ queryKey: ["users"] });
                         setOpen(false);
                     },
                     onError: () => {
-                        toast.error("Foydalanuvchini yangilashda xatolik", { position: "top-right" });
+                        toast.error(t("staff_updated_error"), { position: "top-right" });
                     },
                 }
             );
@@ -58,12 +60,12 @@ const Popup = ({ open, setOpen, data }: PopupProps) => {
                 },
                 {
                     onSuccess: () => {
-                        toast.success("Admin muvaffaqiyatli yaratildi", { position: "top-right" });
+                        toast.success(t("admin_created_success"), { position: "top-right" });
                         client.invalidateQueries({ queryKey: ["users"] });
                         setOpen(false);
                     },
                     onError: () => {
-                        toast.error("Admin yaratishda xatolik yuz berdi", { position: "top-right" });
+                        toast.error(t("admin_created_error"), { position: "top-right" });
                     },
                 }
             );
@@ -77,7 +79,7 @@ const Popup = ({ open, setOpen, data }: PopupProps) => {
             <div className="relative w-[420px] rounded-2xl bg-white p-6 animate-in fade-in zoom-in">
                 <div className="mb-6 flex items-center justify-between">
                     <h2 className="text-xl font-semibold text-gray-800">
-                        {data ? "Xodimni tahrirlash" : "Yangi xodim qo'shish"}
+                        {data ? t("staff_edit_title") : t("staff_add_title")}
                     </h2>
                     <button
                         onClick={() => setOpen(false)}
@@ -89,7 +91,7 @@ const Popup = ({ open, setOpen, data }: PopupProps) => {
 
                 <div className="mb-4">
                     <label className="mb-1 text-sm font-medium text-gray-700 flex items-center">
-                        Telefon raqami <span className="text-red-500 ml-1">*</span>
+                        {t("label_phone")} <span className="text-red-500 ml-1">*</span>
                     </label>
                     <input
                         value={phoneNumber}
@@ -101,13 +103,13 @@ const Popup = ({ open, setOpen, data }: PopupProps) => {
 
                 <div className="mb-6 relative">
                     <label className="mb-1 flex items-center text-sm font-medium text-gray-700">
-                        Parol {data ? <span className="text-xs text-gray-400 ml-2">(o'zgartirish shart emas)</span> : <span className="text-red-500 ml-1">*</span>}
+                        {t("label_password")} {data ? <span className="text-xs text-gray-400 ml-2">{t("password_optional")}</span> : <span className="text-red-500 ml-1">*</span>}
                     </label>
                     <input
                         type={show ? "text" : "password"}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        placeholder={data ? "Yangi parol (ixtiyoriy)" : "••••••••"}
+                        placeholder={data ? t("password_placeholder_optional") : "••••••••"}
                         className="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none transition focus:border-yellow-500"
                     />
                     <button
@@ -123,7 +125,7 @@ const Popup = ({ open, setOpen, data }: PopupProps) => {
                         onClick={() => setOpen(false)}
                         className="rounded-lg border border-gray-300 px-5 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
                     >
-                        Bekor qilish
+                        {t("btn_cancel")}
                     </button>
                     <button
                         onClick={handleSubmit}
@@ -133,9 +135,9 @@ const Popup = ({ open, setOpen, data }: PopupProps) => {
                         {isRegistering || isUpdating ? (
                             <Loader2 className="h-4 w-4 animate-spin" />
                         ) : data ? (
-                            "Saqlash"
+                            t("btn_save")
                         ) : (
-                            "Qo'shish"
+                            t("btn_add")
                         )}
                     </button>
                 </div>
@@ -145,4 +147,3 @@ const Popup = ({ open, setOpen, data }: PopupProps) => {
 };
 
 export default Popup;
-

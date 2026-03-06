@@ -1,15 +1,18 @@
 import { X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const Popup = ({ open, setOpen }: { open: boolean, setOpen: (open: boolean) => void }) => {
 
 
   if (!open) return null;
 
+  const {t} = useTranslation()
+
   return (
     <div className="min-h-screen fixed inset-0 bg-black/10  flex items-center justify-center p-4 z-50">
       <div className="absolute top-20 right-10 bg-white rounded-xl w-full max-w-md max-h-[90vh]">
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
-          <h2 className="text-xl font-bold text-gray-900">Booking Details</h2>
+          <h2 className="text-xl font-bold text-gray-900">{t("bookingDetails")}</h2>
           <button
             onClick={() => setOpen(false)}
             className="text-gray-400 w-8 h-8 border border-gray-300 rounded-full flex items-center justify-center cursor-pointer"
@@ -21,7 +24,7 @@ const Popup = ({ open, setOpen }: { open: boolean, setOpen: (open: boolean) => v
         <div className="p-6 space-y-5">
           <div className='flex items-start flex-col'>
             <label className="block text-sm font-semibold text-gray-900 mb-2">
-              Customer <span className="text-red-500">*</span>
+              {t("bookingCustomer")} <span className="text-red-500">*</span>
             </label>
             <div className="relative w-full">
               <div className="w-full h-12 px-4 py-3 border border-gray-300 rounded-lg flex">
@@ -32,7 +35,7 @@ const Popup = ({ open, setOpen }: { open: boolean, setOpen: (open: boolean) => v
 
           <div className='flex items-start flex-col'>
             <label className="block text-sm font-semibold text-gray-900 mb-2">
-              Staff <span className="text-red-500">*</span>
+              {t("bookingStaff")} <span className="text-red-500">*</span>
             </label>
             <div className="relative w-full">
               <div className="w-full h-12 px-4 py-3 border border-gray-300 rounded-lg flex">
@@ -43,7 +46,7 @@ const Popup = ({ open, setOpen }: { open: boolean, setOpen: (open: boolean) => v
 
           <div className='flex items-start flex-col'>
             <label className="block text-sm font-semibold text-gray-900 mb-2">
-              Services <span className="text-red-500">*</span>
+              {t("bookingServices")} <span className="text-red-500">*</span>
             </label>
             <div className="relative w-full">
               <div className="w-full px-2 py-2 border border-gray-300 rounded-lg bg-white flex flex-wrap gap-3 items-center">
@@ -53,12 +56,12 @@ const Popup = ({ open, setOpen }: { open: boolean, setOpen: (open: boolean) => v
                     <button
                       className="text-gray-400 border border-gray-200 p-1 rounded-md"
                     >
-                      Haircut ×
+                      {t("bookingHaircut")} ×
                     </button>
                     <button
                       className="text-gray-400 border border-gray-200 p-1 rounded-md"
                     >
-                      Coloring ×
+                      {t("bookingColoring")} ×
                     </button>
                   </div>
               </div>
@@ -68,17 +71,17 @@ const Popup = ({ open, setOpen }: { open: boolean, setOpen: (open: boolean) => v
           <div className="grid grid-cols-2 gap-4">
             <div className='flex items-start flex-col'>
               <label className="block text-sm font-semibold text-gray-900 mb-2">
-                Date <span className="text-red-500">*</span>
+                {t("bookingDaties")} <span className="text-red-500">*</span>
               </label>
               <div
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg flex"
               >
-                May 23, 2025
+                {t("bookingDate")} 23, 2025
               </div>
             </div>
             <div className='flex items-start flex-col'>
               <label className="block text-sm font-semibold text-gray-900 mb-2">
-                Time <span className="text-red-500">*</span>
+                {t("bookingTime")} <span className="text-red-500">*</span>
               </label>
               <div className="relative w-full">
                <div className="w-full px-4 py-3 border border-gray-300 rounded-lg flex">
@@ -90,7 +93,7 @@ const Popup = ({ open, setOpen }: { open: boolean, setOpen: (open: boolean) => v
 
           <div className='flex items-start flex-col'>
             <label className="block text-sm font-semibold text-gray-900 mb-2">
-              Notes <span className="text-gray-400 font-normal">(optional)</span>
+              {t("bookingNotes")} <span className="text-gray-400 font-normal">(optional)</span>
             </label>
             <textarea
               name="notes"
@@ -115,7 +118,7 @@ const Popup = ({ open, setOpen }: { open: boolean, setOpen: (open: boolean) => v
             }}
             className="flex-1 px-4 py-3 bg-yellow-400 rounded-lg font-semibold shadow-md text-white cursor-pointer"
           >
-            Confirmed
+            {t("bookingConfirmed")}
           </button>
         </div>
       </div>

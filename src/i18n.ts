@@ -12,15 +12,21 @@ export const resources = {
   eng: {translation: eng}
 } as const;
 
+const savedLanguage = localStorage.getItem('lng') || 'uz';
+
 i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: 'uz',
+    lng: savedLanguage,
     fallbackLng: 'eng',
     interpolation: {
       escapeValue: false
     }
   });
+
+i18n.on('languageChanged', (lng) => {
+  localStorage.setItem('lng', lng);
+});
 
 export default i18n;

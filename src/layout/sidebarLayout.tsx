@@ -11,7 +11,8 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { LogOut } from "lucide-react";
-import { menuGroups } from "./layoutdata";
+import { useMenuGroups } from "./layoutdata";
+import { useTranslation } from "react-i18next";
 import { ActiveLink } from "@/components/activLink";
 import { useState } from "react";
 import LogoutPopup from "@/pages/barber/home/logout";
@@ -20,6 +21,8 @@ export function SidebarLayout() {
   const { state } = useSidebar();
   const isCollapsed = state === "collapsed";
   const [logout, setLogout] = useState(false);
+  const menuGroups = useMenuGroups();
+  const { t } = useTranslation();
 
   return (
     <Sidebar
@@ -71,7 +74,7 @@ export function SidebarLayout() {
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              tooltip={isCollapsed ? "Help Center" : undefined}
+              tooltip={isCollapsed ? t("layoutHelpCenter") : undefined}
               className={`flex items-center rounded-lg font-normal transition-all duration-200 text-slate-400 hover:text-white hover:bg-[#1a1d23] ${isCollapsed ? "w-11 h-11 justify-center p-0" : "w-full h-11"
                 }`}
             >
@@ -80,14 +83,14 @@ export function SidebarLayout() {
           <SidebarMenuItem>
             <SidebarMenuButton
               onClick={() => setLogout(true)}
-              tooltip={isCollapsed ? "Logout" : undefined}
+              tooltip={isCollapsed ? t("layoutLogout") : undefined}
               className={`flex items-center rounded-lg font-normal transition-all duration-200 text-red-500 hover:text-red-400 hover:bg-red-500/10 cursor-pointer ${isCollapsed ? "w-11 h-11 justify-center p-0" : "w-full h-11"
                 }`}
             >
               <div className={`w-full h-full flex items-center ${isCollapsed ? "justify-center" : "gap-3 px-3"}`}>
                 <LogOut className="h-5 w-5 min-w-5 stroke-[1.8]" />
                 {!isCollapsed && (
-                  <span className="text-sm font-semibold">Logout</span>
+                  <span className="text-sm font-semibold">{t("layoutLogout")}</span>
                 )}
               </div>
             </SidebarMenuButton>

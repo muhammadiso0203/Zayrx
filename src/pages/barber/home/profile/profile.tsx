@@ -2,9 +2,11 @@ import { BriefcaseBusiness, Clock, Loader2, Phone, Shield, Star, User, Pencil, S
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useCreateProfile, useGetProfile, useUpdateProfile } from "../service/hooks/useProfile";
+import { useCreateProfile, useGetProfile, useUpdateProfile } from "../../service/hooks/useProfile";
+import { useTranslation } from "react-i18next";
 
 const Profile = () => {
+    const { t } = useTranslation();
     const { data, isLoading } = useGetProfile();
     const { mutate: updateProfile, isPending: isUpdating } = useUpdateProfile();
     const { mutate: createProfile, isPending: isCreating } = useCreateProfile();
@@ -100,12 +102,12 @@ const Profile = () => {
                     <div className="flex justify-between items-start">
                         <div>
                             <h1 className="text-2xl font-bold text-gray-900">{user?.barberProfile?.fullName || user?.name || "Foydalanuvchi"}</h1>
-                            <p className="text-gray-500 font-medium">{user?.role?.charAt(0).toUpperCase() + user?.role?.slice(1) || "Role aniqlanmadi"}</p>
+                            <p className="text-gray-500 font-medium">{user?.role?.charAt(0).toUpperCase() + user?.role?.slice(1) || t("profile_role_not_found")}</p>
                         </div>
                         {!isEditing && (
                             <Button onClick={() => setIsEditing(true)} variant="outline" className="gap-2">
                                 <Pencil className="w-4 h-4" />
-                                Tahrirlash
+                                {t("profile_edit")}
                             </Button>
                         )}
                     </div>
@@ -116,7 +118,7 @@ const Profile = () => {
                                 <Phone className="w-5 h-5" />
                             </div>
                             <div className="flex-1">
-                                <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">Telefon raqam</p>
+                                <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">{t("profile_phone")}</p>
                                 {isEditing ? (
                                     <Input
                                         name="phoneNumber"
@@ -125,7 +127,7 @@ const Profile = () => {
                                         className="h-8 mt-1"
                                     />
                                 ) : (
-                                    <p className="text-gray-900 font-semibold">{user?.phoneNumber || "Kiritilmagan"}</p>
+                                    <p className="text-gray-900 font-semibold">{user?.phoneNumber || t("profile_not_specified")}</p>
                                 )}
                             </div>
                         </div>
@@ -135,8 +137,8 @@ const Profile = () => {
                                 <Shield className="w-5 h-5" />
                             </div>
                             <div>
-                                <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">Role</p>
-                                <p className="text-gray-900 font-semibold">{user?.role?.charAt(0).toUpperCase() + user?.role?.slice(1) || "Kiritilmagan"}</p>
+                                <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">{t("profile_role")}</p>
+                                <p className="text-gray-900 font-semibold">{user?.role?.charAt(0).toUpperCase() + user?.role?.slice(1) || t("profile_not_specified")}</p>
                             </div>
                         </div>
                         {role !== 'super_admin' && (
@@ -145,7 +147,7 @@ const Profile = () => {
                                     <User className="w-5 h-5" />
                                 </div>
                                 <div className="flex-1">
-                                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">Bio</p>
+                                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">{t("profile_bio")}</p>
                                     {isEditing ? (
                                         <Input
                                             name="bio"
@@ -154,7 +156,7 @@ const Profile = () => {
                                             className="h-8 mt-1"
                                         />
                                     ) : (
-                                        <p className="text-gray-900 font-semibold">{user?.barberProfile?.bio || "Kiritilmagan"}</p>
+                                        <p className="text-gray-900 font-semibold">{user?.barberProfile?.bio || t("profile_not_specified")}</p>
                                     )}
                                 </div>
                             </div>)}
@@ -164,7 +166,7 @@ const Profile = () => {
                                     <User className="w-5 h-5" />
                                 </div>
                                 <div className="flex-1">
-                                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">Barber</p>
+                                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">{t("profile_barber")}</p>
                                     {isEditing ? (
                                         <Input
                                             name="name"
@@ -173,7 +175,7 @@ const Profile = () => {
                                             className="h-8 mt-1"
                                         />
                                     ) : (
-                                        <p className="text-gray-900 font-semibold">{user?.barberProfile?.fullName || "Kiritilmagan"}</p>
+                                        <p className="text-gray-900 font-semibold">{user?.barberProfile?.fullName || t("profile_not_specified")}</p>
                                     )}
                                 </div>
                             </div>
@@ -184,8 +186,8 @@ const Profile = () => {
                                     <Star className="w-5 h-5" />
                                 </div>
                                 <div>
-                                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">Rating</p>
-                                    <p className="text-gray-900 font-semibold">{user?.barberProfile?.ratingAvg || "Kiritilmagan"}</p>
+                                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">{t("profile_rating")}</p>
+                                    <p className="text-gray-900 font-semibold">{user?.barberProfile?.ratingAvg || t("profile_not_specified")}</p>
                                 </div>
                             </div>)}
                         {role !== 'super_admin' && (
@@ -194,7 +196,7 @@ const Profile = () => {
                                     <BriefcaseBusiness className="w-5 h-5" />
                                 </div>
                                 <div className="flex-1">
-                                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">Exprience</p>
+                                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">{t("profile_experience")}</p>
                                     {isEditing ? (
                                         <Input
                                             name="experienceYears"
@@ -204,7 +206,7 @@ const Profile = () => {
                                             type="number"
                                         />
                                     ) : (
-                                        <p className="text-gray-900 font-semibold">{user?.barberProfile?.experienceYears || "Kiritilmagan"}</p>
+                                        <p className="text-gray-900 font-semibold">{user?.barberProfile?.experienceYears || t("profile_not_specified")}</p>
                                     )}
                                 </div>
                             </div>)}
@@ -214,7 +216,7 @@ const Profile = () => {
                                     <Clock className="w-5 h-5" />
                                 </div>
                                 <div className="flex-1">
-                                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">Start Time</p>
+                                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">{t("profile_start_time")}</p>
                                     {isEditing ? (
                                         <Input
                                             name="startTime"
@@ -224,7 +226,7 @@ const Profile = () => {
                                             type="time"
                                         />
                                     ) : (
-                                        <p className="text-gray-900 font-semibold">{user?.barberProfile?.startTime || "Kiritilmagan"}</p>
+                                        <p className="text-gray-900 font-semibold">{user?.barberProfile?.startTime || t("profile_not_specified")}</p>
                                     )}
                                 </div>
                             </div>)}
@@ -234,7 +236,7 @@ const Profile = () => {
                                     <Clock className="w-5 h-5" />
                                 </div>
                                 <div className="flex-1">
-                                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">End Time</p>
+                                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">{t("profile_end_time")}</p>
                                     {isEditing ? (
                                         <Input
                                             name="endTime"
@@ -244,7 +246,7 @@ const Profile = () => {
                                             type="time"
                                         />
                                     ) : (
-                                        <p className="text-gray-900 font-semibold">{user?.barberProfile?.endTime || "Kiritilmagan"}</p>
+                                        <p className="text-gray-900 font-semibold">{user?.barberProfile?.endTime || t("profile_not_specified")}</p>
                                     )}
                                 </div>
                             </div>)}
@@ -254,7 +256,7 @@ const Profile = () => {
                                     <Calendar className="w-5 h-5" />
                                 </div>
                                 <div className="flex-1">
-                                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">Week Day</p>
+                                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">{t("profile_week_day")}</p>
                                     {isEditing ? (
                                         <Input
                                             name="weekday"
@@ -264,7 +266,7 @@ const Profile = () => {
                                             type="number"
                                         />
                                     ) : (
-                                        <p className="text-gray-900 font-semibold">{user?.barberProfile?.weekday || "Kiritilmagan"}</p>
+                                        <p className="text-gray-900 font-semibold">{user?.barberProfile?.weekday || t("profile_not_specified")}</p>
                                     )}
                                 </div>
                             </div>)}
@@ -278,7 +280,7 @@ const Profile = () => {
                                 disabled={isPending}
                             >
                                 <X className="w-4 h-4 mr-2" />
-                                Bekor qilish
+                                {t("profile_cancel")}
                             </Button>
                             <Button
                                 onClick={handleSave}
@@ -288,12 +290,12 @@ const Profile = () => {
                                 {isPending ? (
                                     <>
                                         <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                        Saqlanmoqda...
+                                        {t("profile_saving")}
                                     </>
                                 ) : (
                                     <>
                                         <Save className="w-4 h-4 mr-2" />
-                                        Saqlash
+                                        {t("profile_save")}
                                     </>
                                 )}
                             </Button>

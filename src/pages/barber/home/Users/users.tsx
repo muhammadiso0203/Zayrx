@@ -7,8 +7,10 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import { useDeleteUser, useGetAllUsers } from "../../service/hooks/useUser";
+import { useTranslation } from "react-i18next";
 
 const Staff = () => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<any>(null);
   const { data, isLoading } = useGetAllUsers()
@@ -37,11 +39,11 @@ const Staff = () => {
   const handleDelete = (id: string | number) => {
     deleteUser(id, {
       onSuccess: () => {
-        toast.success("Foydalanuvchi o'chirildi");
+        toast.success(t("staff_deleted_success"));
         client.invalidateQueries({ queryKey: ["users"] });
       },
       onError: () => {
-        toast.error("Xatolik yuz berdi");
+        toast.error(t("staff_error"));
       }
     });
   };
@@ -50,43 +52,43 @@ const Staff = () => {
 
   return (
     <div className="p-1 bg-gray-50/30 min-h-screen">
-      <h1 className="font-bold text-2xl mb-4 text-gray-800">Staff</h1>
+      <h1 className="font-bold text-2xl mb-4 text-gray-800">{t("staff_title")}</h1>
       <hr className="border-gray-200" />
 
       <div className="flex justify-between items-center gap-4 mb-4 mt-4">
         <h1 className="text-gray-500 text-sm">
-          Management / <span className="font-bold text-black text-sm">Staff</span>
+          {t("management")} / <span className="font-bold text-black text-sm">{t("staff_title")}</span>
         </h1>
         <div className="flex items-center gap-3">
           <button className="flex items-center justify-center gap-2 border bg-white px-4 py-2.5 rounded-[10px] font-semibold text-sm text-gray-700 hover:bg-gray-50 transition">
             <Download className="w-4 h-4" />
-            Export CSV
+            {t("export_csv")}
           </button>
           <button
             onClick={() => setOpen(true)}
             className="flex items-center justify-center gap-2 text-sm px-4 py-2.5 rounded-[10px] font-semibold bg-amber-500 text-white hover:bg-amber-600 transition shadow-sm"
           >
             <Plus className="w-4 h-4" />
-            Add New Staff
+            {t("add_new_staff")}
           </button>
         </div>
       </div>
 
       <div className="bg-white border border-gray-200 rounded-[10px] shadow-sm overflow-hidden">
         <div className="p-4 flex flex-col lg:flex-row justify-between lg:items-center gap-4">
-          <h2 className="font-bold text-lg text-gray-800">Staff Table</h2>
+          <h2 className="font-bold text-lg text-gray-800">{t("staff_table_title")}</h2>
           <div className="flex flex-wrap items-center gap-3">
             <div className="flex items-center gap-2 border bg-gray-50 px-3 py-2 rounded-[10px] transition-colors flex-1 focus-within:bg-white">
               <Search className="w-4 h-4 text-gray-400" />
-              <input type="text" placeholder="Search" className="outline-none text-sm w-full bg-transparent" />
+              <input type="text" placeholder={t("search")} className="outline-none text-sm w-full bg-transparent" />
             </div>
             <button className="flex items-center gap-2 border bg-white px-4 py-2 rounded-[10px] text-gray-600 hover:bg-gray-50 transition-colors text-sm font-medium">
               <Filter className="w-4 h-4 text-gray-400" />
-              Filtrlash
+              {t("filter")}
             </button>
             <button className="flex items-center gap-2 border bg-white px-4 py-2 rounded-[10px] text-gray-600 hover:bg-gray-50 transition-colors text-sm font-medium">
               <SortAscIcon className="w-4 h-4 text-gray-400" />
-              Saralash
+              {t("sort_by")}
             </button>
           </div>
         </div>
@@ -103,11 +105,11 @@ const Staff = () => {
                   <TableHead className="px-6 py-4 w-12 text-center">
                     <input type="checkbox" className="rounded border-gray-300 transform scale-110" />
                   </TableHead>
-                  <TableHead className="px-4 py-4 text-xs font-bold text-gray-500 uppercase">No</TableHead>
-                  <TableHead className="px-4 py-4 text-xs font-bold text-gray-500 uppercase">F.I.SH</TableHead>
-                  <TableHead className="px-4 py-4 text-xs font-bold text-gray-500 uppercase">Telefon raqami</TableHead>
-                  <TableHead className="px-4 py-4 text-xs font-bold text-gray-500 uppercase">Roli</TableHead>
-                  <TableHead className="px-4 py-4 text-xs font-bold text-gray-500 text-right uppercase">Amallar</TableHead>
+                  <TableHead className="px-4 py-4 text-xs font-bold text-gray-500 uppercase">{t("staff_col_no")}</TableHead>
+                  <TableHead className="px-4 py-4 text-xs font-bold text-gray-500 uppercase">{t("staff_col_fullName")}</TableHead>
+                  <TableHead className="px-4 py-4 text-xs font-bold text-gray-500 uppercase">{t("staff_col_phone")}</TableHead>
+                  <TableHead className="px-4 py-4 text-xs font-bold text-gray-500 uppercase">{t("staff_col_role")}</TableHead>
+                  <TableHead className="px-4 py-4 text-xs font-bold text-gray-500 text-right uppercase">{t("staff_col_actions")}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -135,11 +137,11 @@ const Staff = () => {
                         <DropdownMenuContent align="end" className="w-40 p-1">
                           <DropdownMenuItem onClick={() => handleEdit(user)} className="cursor-pointer gap-2 py-2">
                             <Pencil className="w-4 h-4 text-blue-500" />
-                            <span>Tahrirlash</span>
+                            <span>{t("action_edit")}</span>
                           </DropdownMenuItem>
                           <DropdownMenuItem onClick={() => handleDelete(user.id)} className="cursor-pointer gap-2 py-2 text-red-600 focus:text-red-600 focus:bg-red-50">
                             <Trash2 className="w-4 h-4" />
-                            <span>O'chirish</span>
+                            <span>{t("action_delete")}</span>
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
@@ -153,11 +155,11 @@ const Staff = () => {
 
         <div className="p-4 flex justify-between items-center gap-4 text-sm font-medium text-gray-500 border-t border-gray-100 bg-white">
           <div className="flex-1">
-            Jami {allStaff.length} ta natijadan {allStaff.length} tasi ko'rsatilmoqda
+            {t("staff_showing_results")} {allStaff.length} {t("paginationOf")} {allStaff.length} {t("staff_results")}
           </div>
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
-              <span>Soni</span>
+              <span>{t("staff_per_page")}</span>
               <div className="relative inline-block">
                 <Select defaultValue="10">
                   <SelectTrigger className="w-20">

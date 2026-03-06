@@ -15,9 +15,10 @@ import {
 } from "lucide-react";
 import { admins } from "@/data/data";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-
+import { useTranslation } from "react-i18next";
 
 const Admins = () => {
+  const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
   const [activeTab, setActiveTab] = useState('list');
 
@@ -26,11 +27,11 @@ const Admins = () => {
     <div className="p-1 min-h-screen">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Admin Management</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t("admin_management")}</h1>
           <div className="flex items-center gap-2 text-sm mt-1">
-            <span className="text-gray-500 font-medium">Home</span>
+            <span className="text-gray-500 font-medium">{t("home")}</span>
             <ChevronRight className="w-4 h-4 text-gray-300" />
-            <span className="text-gray-900 font-bold">Admins</span>
+            <span className="text-gray-900 font-bold">{t("admin_col_admin")}</span>
           </div>
         </div>
 
@@ -39,14 +40,14 @@ const Admins = () => {
             onClick={() => setActiveTab('list')}
             className={`px-4 py-2 rounded-[10px] text-sm font-bold ${activeTab === 'list' ? 'bg-amber-500 text-white' : 'bg-white border text-gray-600'}`}
           >
-            Admin List
+            {t("admin_list")}
           </button>
           <button
             onClick={() => setActiveTab('create')}
             className={`px-4 py-2 rounded-[10px] text-sm font-bold flex items-center gap-2 ${activeTab === 'create' ? 'bg-amber-500 text-white' : 'bg-white border text-gray-600'}`}
           >
             <UserPlus className="w-4 h-4" />
-            Create Admin
+            {t("create_admin")}
           </button>
         </div>
       </div>
@@ -56,13 +57,13 @@ const Admins = () => {
       {activeTab === 'list' ? (
         <div className="bg-white border border-gray-100 rounded-3xl  overflow-hidden duration-300">
           <div className="p-6 border-b border-gray-50 flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <h2 className="text-lg font-bold text-gray-800">System Administrators</h2>
+            <h2 className="text-lg font-bold text-gray-800">{t("system_administrators")}</h2>
             <div className="flex items-center gap-3">
               <div className="relative">
                 <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                 <input
                   type="text"
-                  placeholder="Search admins..."
+                  placeholder={t("search_admins")}
                   className="pl-10 pr-4 py-2 bg-gray-50 border-none rounded-[10px] text-sm"
                 />
               </div>
@@ -79,11 +80,11 @@ const Admins = () => {
             <table className="w-full text-left">
               <thead>
                 <tr className="bg-gray-50/50 text-gray-400 text-[11px] uppercase tracking-wider font-bold">
-                  <th className="px-6 py-4">Admin</th>
-                  <th className="px-6 py-4">Role</th>
-                  <th className="px-6 py-4">Contact</th>
-                  <th className="px-6 py-4">Status</th>
-                  <th className="px-6 py-4 text-right">Actions</th>
+                  <th className="px-6 py-4">{t("admin_col_admin")}</th>
+                  <th className="px-6 py-4">{t("admin_col_role")}</th>
+                  <th className="px-6 py-4">{t("admin_col_contact")}</th>
+                  <th className="px-6 py-4">{t("admin_col_status")}</th>
+                  <th className="px-6 py-4 text-right">{t("admin_col_actions")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -113,7 +114,7 @@ const Admins = () => {
                     <td className="px-6 py-4">
                       <div className={`flex items-center gap-1.5 text-xs font-bold ${admin.status === 'Active' ? 'text-emerald-500' : 'text-gray-400'}`}>
                         <div className={`w-1.5 h-1.5 rounded-full ${admin.status === 'Active' ? 'bg-emerald-500 border-emerald-200' : 'bg-gray-300'} border `}></div>
-                        {admin.status}
+                        {admin.status === 'Active' ? t("status_active") : admin.status}
                       </div>
                     </td>
                     <td className="px-6 py-4 text-right">
@@ -142,7 +143,7 @@ const Admins = () => {
 
                 <div className="space-y-2">
                   <label className="text-sm font-bold text-gray-700 flex items-center gap-2">
-                    Phone Number
+                    {t("label_phone")}
                   </label>
                   <div className="relative group">
                     <div className="absolute inset-y-0 left-0 pl-3  flex items-center pointer-events-none transition-colors text-gray-400">
@@ -159,7 +160,7 @@ const Admins = () => {
 
                 <div className="space-y-2">
                   <label className="text-sm font-bold text-gray-700 flex items-center gap-2">
-                    Role <span className="text-red-500">*</span>
+                    {t("admin_col_role")} <span className="text-red-500">*</span>
                   </label>
                   <div className="relative group">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none transition-colors text-gray-400">
@@ -169,10 +170,10 @@ const Admins = () => {
 
                     >
                       <SelectTrigger className="w-full pl-10 pr-3 py-3 border border-gray-200 rounded-[10px] bg-gray-50/30 text-gray-900 placeholder:text-gray-400 text-sm">
-                        <SelectValue placeholder="Admin" />
+                        <SelectValue placeholder={t("admin_col_admin")} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Admin">Admin</SelectItem>
+                        <SelectItem value="Admin">{t("admin_col_admin")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -182,7 +183,7 @@ const Admins = () => {
               <div className="pt-4 border-t border-gray-50">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-gray-700">Password</label>
+                    <label className="text-sm font-bold text-gray-700">{t("label_password")}</label>
                     <div className="relative group">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none transition-colors text-gray-400">
                         <Lock className="h-5 w-5" />
@@ -204,7 +205,7 @@ const Admins = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-gray-700">Confirm Password</label>
+                    <label className="text-sm font-bold text-gray-700">{t("authConfirmNewPassword")}</label>
                     <div className="relative group">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none transition-colors text-gray-400">
                         <Lock className="h-5 w-5" />
@@ -225,14 +226,14 @@ const Admins = () => {
                   onClick={() => setActiveTab('list')}
                   className="px-6 py-3 border border-gray-200 text-gray-600 rounded-[10px] font-bold cursor-pointer flex items-center justify-center gap-2"
                 >
-                  Cancel
+                  {t("btn_cancel")}
                 </button>
                 <button
                   type="submit"
                   className="px-10 py-3 bg-amber-500 text-white rounded-[10px] font-bold cursor-pointer flex items-center justify-center gap-2"
                 >
                   <UserPlus className="w-5 h-5" />
-                  Create Admin
+                  {t("create_admin")}
                 </button>
               </div>
             </form>
